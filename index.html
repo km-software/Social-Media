@@ -1,4 +1,11 @@
+
 <html>
+    <center>
+    
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+    
     <div id="myNav" class="overlay">
 
   <!-- Button to close the overlay navigation -->
@@ -13,15 +20,33 @@
   </div>
 
 </div>
+    
+<style>
+button {
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
 
+button:hover {opacity: 1}
+</style>
+    
 <!-- Use any element to open/show the overlay navigation menu -->
 <button onmouseover="openNav()" id = "menu">Menu</button>
     
     <br>
     <br>
     
-    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
     <style>
         
         #menu {
@@ -46,7 +71,6 @@
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
-
 /* Position the content inside the overlay */
 .overlay-content {
   position: relative;
@@ -55,7 +79,6 @@
   text-align: center; /* Centered text/links */
   margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
 }
-
 /* The navigation links inside the overlay */
 .overlay a {
   padding: 8px;
@@ -65,12 +88,10 @@
   display: block; /* Display block instead of inline */
   transition: 0.3s; /* Transition effects on hover (color) */
 }
-
 /* When you mouse over the navigation links, change their color */
 .overlay a:hover, .overlay a:focus {
   color: #f1f1f1;
 }
-
 /* Position the close button (top right corner) */
 .overlay .closebtn {
   position: absolute;
@@ -78,7 +99,6 @@
   right: 45px;
   font-size: 60px;
 }
-
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
@@ -95,7 +115,6 @@
 function openNav() {
   document.getElementById("myNav").style.width = "100%";
 }
-
 /* Close when someone clicks on the "x" symbol inside the overlay */
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
@@ -132,13 +151,12 @@ function closeNav() {
                 mydiv.innerHTML = name
                 myphotodiv = document.getElementById("myphoto");
                 myphotodiv.innerHTML = "<img src='" + imageUrl + "'/>";
-
                 firebase.database().ref('/').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
                       console.log("No data found at /tweets");  
                     } else {
-                      /*
+                      
                       console.log(data); 
                       var mylist = "<ul>";
                       for (var u in data) {
@@ -152,7 +170,7 @@ function closeNav() {
                         console.log(mylist);
                       var mytdiv = document.getElementById("mytweets");
                       mytdiv.innerHTML = mylist;
-                      */
+                      
                       updatetweets(data);
                     }
                 });
@@ -171,12 +189,12 @@ function closeNav() {
         function updatetweets(data) {
             console.log(data); 
             var mylist = "<ul>";
-            for (var u in data.tweets) {
-                console.log(data[u]);
-                for (var t in data.tweets[u]) {
-                    console.log(data.tweets[u][t].tweet);
-                    mylist = mylist + "<li>" + data.tweets[u][t].tweet + " (" + data.users[u].email + ")</li>";
-                } 
+            for (var u in data) {
+                var d = new Date(data[u].time);
+                var t = d.toString();
+            
+                    mylist = mylist + "<li>" + data[u].tweet + " (" + t + ")</li>";
+                 
             }
             mylist = mylist + "</ul>";
             console.log(mylist);
@@ -189,14 +207,15 @@ function closeNav() {
             
             twitdoc = document.getElementById("twit");
             var nameValue = twitdoc.value;
-            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue});
+            var js_time = Date.now();
+            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time});
             twitdoc.value = "";
             console.log("tweet written")
             
-            firebase.database().ref().once('value').then(function(snapshot) {
+            firebase.database().ref('/tweets/' + userId).once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
-                      console.log("No data found at /tweets");  
+                      console.log("No data found at /tweets/");  
                     } else {
                       updatetweets(data);
                     }
@@ -232,10 +251,10 @@ function closeNav() {
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
     
-    <div id="mytweets"></div>
+   <div id="mytweets"></div>
     <div id="mydata"></div>
     <div id="myphoto"></div>
     </body>
 
-    
+    </center>
 </html>
