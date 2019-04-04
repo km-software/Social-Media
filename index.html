@@ -151,7 +151,7 @@ function closeNav() {
                 mydiv.innerHTML = name
                 myphotodiv = document.getElementById("myphoto");
                 myphotodiv.innerHTML = "<img src='" + imageUrl + "'/>";
-                firebase.database().ref('/').once('value').then(function(snapshot) {
+                firebase.database().ref('tweets/' + userId).once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
                       console.log("No data found at /tweets");  
@@ -193,13 +193,13 @@ function closeNav() {
                 var d = new Date(data[u].time);
                 var t = d.toString();
             
-                    mylist = mylist + "<li>" + data[u].tweet + " (" + t + ")</li>";
+                    mylist = mylist + "<li>" + data[u].tweet + "    (" + name + ") " + "(" + t + ")</li>";
                  
             }
             mylist = mylist + "</ul>";
             console.log(mylist);
-            var mytdiv = document.getElementById("mytweets");
-            mytdiv.innerHTML = mylist;
+            var mydiv = document.getElementById("mytweets");
+            mydiv.innerHTML = mylist;
         }
         
         // write tweets to firebase
@@ -212,7 +212,7 @@ function closeNav() {
             twitdoc.value = "";
             console.log("tweet written")
             
-            firebase.database().ref('/tweets/' + userId).once('value').then(function(snapshot) {
+            firebase.database().ref('tweets/' + userId).once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
                       console.log("No data found at /tweets/");  
