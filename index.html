@@ -1,126 +1,17 @@
-
 <html>
-    <center>
-    
+
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    
-    
-    <div id="myNav" class="overlay">
 
-  <!-- Button to close the overlay navigation -->
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-  <!-- Overlay content -->
-  <div class="overlay-content">
-    <a href="#">Profile</a>
-    <a href="#">Explore</a>
-    <a href="#">Notifications</a>
-    <a href="#">Settings</a>
-  </div>
-
-</div>
-    
-<style>
-button {
-  background-color: blue;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  font-size: 16px;
-  margin: 4px 2px;
-  opacity: 0.6;
-  transition: 0.3s;
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-button:hover {opacity: 1}
-</style>
-    
-<!-- Use any element to open/show the overlay navigation menu -->
-<button onmouseover="openNav()" id = "menu">Menu</button>
-    
-    <br>
-    <br>
-    
-    
     <style>
-        
-        #menu {
-            font-size: 20;
-            color: crimson;
-            background-color: aqua;
-            padding: 4px;
-            
-    
+        tr:hover {background-color: #f5f5f5;}
+        th, td {
+            border-bottom: 1px solid #ddd;
         }
-    /* The Overlay (background) */
-.overlay {
-  /* Height & width depends on how you want to reveal the overlay (see JS below) */    
-  height: 100%;
-  width: 0;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  background-color: rgb(0,0,0); /* Black fallback color */
-  background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-}
-/* Position the content inside the overlay */
-.overlay-content {
-  position: relative;
-  top: 25%; /* 25% from the top */
-  width: 100%; /* 100% width */
-  text-align: center; /* Centered text/links */
-  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
-}
-/* The navigation links inside the overlay */
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block; /* Display block instead of inline */
-  transition: 0.3s; /* Transition effects on hover (color) */
-}
-/* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
-}
-/* Position the close button (top right corner) */
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-}
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
-  }
-}
-    </style>
     
+    </style>
     <script>
-    /* Open when someone clicks on the span element */
-function openNav() {
-  document.getElementById("myNav").style.width = "100%";
-}
-/* Close when someone clicks on the "x" symbol inside the overlay */
-function closeNav() {
-  document.getElementById("myNav").style.width = "0%";
-}
-    </script>
-    <script>
+        
         // Initialize Firebase
         var config = {
     apiKey: "AIzaSyCOqVfQMj1kFydbroIygF9EpclADcRxfz4",
@@ -129,7 +20,7 @@ function closeNav() {
     projectId: "test-590e7",
     storageBucket: "test-590e7.appspot.com",
     messagingSenderId: "50844118454"
-  };
+        };
         firebase.initializeApp(config);
                 
         // Check to see if you are logged in
@@ -151,31 +42,46 @@ function closeNav() {
                 mydiv.innerHTML = name
                 myphotodiv = document.getElementById("myphoto");
                 myphotodiv.innerHTML = "<img src='" + imageUrl + "'/>";
-                firebase.database().ref('tweets/' + userId).once('value').then(function(snapshot) {
+
+                firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
-                      console.log("No data found at /tweets");  
+                      console.log("No data found at /tweets/" + userId);  
                     } else {
-                      
-                      console.log(data); 
-                      var mylist = "<ul>";
-                      for (var u in data) {
-                         console.log(data[u]);
-                         for (var t in data[u]) {
-                            console.log(data[u][t].tweet);
-                            mylist = mylist + "<li>" + data[u][t].tweet + "</li>";
-                         } 
-                      }
-                      mylist = mylist + "</ul>";
-                        console.log(mylist);
-                      var mytdiv = document.getElementById("mytweets");
-                      mytdiv.innerHTML = mylist;
-                      
-                      updatetweets(data);
+                        
+                      firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                        var userdata = (snapshot.val());
+                        if (userdata != null) {
+                           dataarray = [data,userdata]
+                           console.log(dataarray)
+                           updatetweets(dataarray); 
+                        }
+                      });
+                      //console.log(data)
+                      //updatetweets(data);
                     }
                 });
             } // end user null check
         }); // end check auth state
+        
+        function encodeImageFileAsURL() {
+
+            var filesSelected = document.getElementById("inputFileToLoad").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                    //var newImage = document.createElement('img');
+                    //newImage.src = srcData;
+                    //document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+                    document.getElementById("imgTest").innerHTML = srcData;
+                    //console.log("Converted Base64 version is: " + document.getElementById("imgTest").innerHTML);
+                    console.log(srcData);
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        } // end function
         
         // write user data
         function writeUserData(userId, name, email, imageUrl) {
@@ -187,58 +93,78 @@ function closeNav() {
         }
         
         function updatetweets(data) {
-            console.log(data); 
-            var mylist = "<ul>";
-            for (var u in data) {
-                var d = new Date(data[u].time);
-                var t = d.toString();
+            //var mylist = "<ul>";
+            var mytab = "<table>";
+            users = data[1]; // put on top, because changed data - not good coding change later
+            data = data[0];
             
-                    mylist = mylist + "<li>" + data[u].tweet + "(" + name + ") " + "(" + t + ")</li>";
-                 
+            for (var u in data) {
+                for (var t in data[u]) {
+                    mytab = mytab + "<tr>";
+                    var date = new Date(data[u][t].time);
+                    var time = date.toString();
+                    if (data[u][t].img != "") {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].email + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + time + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                    } else {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].email + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + time + "</td>";
+                        
+                        
+                    } 
+                    mytab = mytab + "</tr>";
+                }   
             }
-            mylist = mylist + "</ul>";
-            console.log(mylist);
-            var mydiv = document.getElementById("mytweets");
-            mydiv.innerHTML = mylist;
+            //mylist = mylist + "</ul>";
+            mytab = mytab + "</table>"
+            var mytdiv = document.getElementById("mytweets");
+            //mytdiv.innerHTML = mylist;
+            mytdiv.innerHTML = mytab;
         }
         
         // write tweets to firebase
         function tweet() {
             
-            twitdoc = document.getElementById("twit");
+            var twitdoc = document.getElementById("twit");
+            var twitimg = document.getElementById("imgTest");
             var nameValue = twitdoc.value;
+            var imgValue = twitimg.innerHTML;
             var js_time = Date.now();
-            
-            if (nameValue.length <1) {
-                alert("Message box cannot be empty");
-            } else if (nameValue.length >140) {
-                alert("Message is too long...");
-            } else {
-            
-            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time});
+            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time, img: imgValue});
             twitdoc.value = "";
             console.log("tweet written")
             
-            firebase.database().ref("tweets/" + userId).once('value').then(function(snapshot) {
+            firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
-                      console.log("No data found at /tweets/");  
-                    } else {
-                      updatetweets(data);
+                      console.log("No data found at /tweets/" + userId);  
+                    } else { 
+                        firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                        var userdata = (snapshot.val());
+                        if (userdata != null) {
+                           dataarray = [data,userdata]
+                           console.log(dataarray)
+                           updatetweets(dataarray); 
+                        }
+                      });
                     }
-            
                 });
-            }
+            
+            
             
             // The unique key stored in tweetid is based on a timestamp, so list items will automatically be ordered chronologically. Because Firebase generates a unique key for each tweet, no write conflicts will occur if multiple users add a post at the same time. https://firebase.google.com/docs/database/admin/save-data
             
         }
         
-        
         function signin() {
             console.log("Signing in");
             var provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithRedirect(provider).then(function(result) {  
+            firebase.auth().signInWithRedirect(provider).then(function(result) { 
+                window.location.replace("fbtest.html");
             });
         }
         
@@ -247,12 +173,17 @@ function closeNav() {
             firebase.auth().signOut().then(function() {
             });
         }
+        
+
     
     </script>
 
     <body>
         <button onclick="signin()">Sign in</button>
         <button onclick="signout()">Sign out</button>
+        <br>
+        <p>Step 1: delete your existing Firebase Realtime database</p>
+        <a href="fbtest.json" target="_target">Step 2: replace JSON Firebase rules for database</a><br>
     
         <form>
             Tweet:<br>
@@ -260,10 +191,19 @@ function closeNav() {
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
     
-   <div id="mytweets"></div>
+        <br><input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+        <div id="imgTest" style="display:none;"></div>
+        
+    <div id="mytweets"></div>
     <div id="mydata"></div>
     <div id="myphoto"></div>
+        
+        
+        
+        
     </body>
 
-    </center>
+    
+
+    
 </html>
