@@ -193,7 +193,7 @@ function closeNav() {
                 var d = new Date(data[u].time);
                 var t = d.toString();
             
-                    mylist = mylist + "<li>" + data[u].tweet + "    (" + name + ") " + "(" + t + ")</li>";
+                    mylist = mylist + "<li>" + data[u].tweet + "(" + name + ") " + "(" + t + ")</li>";
                  
             }
             mylist = mylist + "</ul>";
@@ -208,6 +208,13 @@ function closeNav() {
             twitdoc = document.getElementById("twit");
             var nameValue = twitdoc.value;
             var js_time = Date.now();
+            
+            if (nameValue.length <1) {
+                alert("Message box cannot be empty");
+            } else if (nameValue.length >140) {
+                alert("Message is too long...");
+            } else {
+            
             var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time});
             twitdoc.value = "";
             console.log("tweet written")
@@ -219,7 +226,9 @@ function closeNav() {
                     } else {
                       updatetweets(data);
                     }
+            
                 });
+            }
             
             // The unique key stored in tweetid is based on a timestamp, so list items will automatically be ordered chronologically. Because Firebase generates a unique key for each tweet, no write conflicts will occur if multiple users add a post at the same time. https://firebase.google.com/docs/database/admin/save-data
             
