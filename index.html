@@ -218,6 +218,9 @@ function closeNav() {
                 mydiv.innerHTML = name
                 myphotodiv = document.getElementById("myphoto");
                 myphotodiv.innerHTML = "<img src='" + imageUrl + "'/>";
+                document.getElementById("name").innerHTML = name;
+                document.getElementById("image").src = imageUrl;
+                document.getElementById("email").innerHTML = email;
 
                 firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
@@ -362,8 +365,9 @@ function closeNav() {
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="card">
-  <img  src = "" alt="Image" style="width:100%" id="image">
+  <img  height = "300px" width = "300px" src = "" alt="Image" id="image">
   <h1 id="name"></h1>
+  <p id = "email"> </p>
   <p class="title">CEO & Founder, Example</p>
   <p>Harvard University</p>
   <a href="#"><i class="fa fa-dribbble"></i></a> 
@@ -433,10 +437,9 @@ window.onclick = function(event) {
 }
     
  
- document.getElementById("name").innerHTML = name;
- 
- document.getElementById("image").src = imageUrl;
+
 console.log(imageUrl);
+console.log(userId);
          
     
     </script>
