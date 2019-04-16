@@ -187,6 +187,8 @@ function closeNav() {
 }
     </script>
     <script>
+       
+        //var facebookUrl = "";
         
         // Initialize Firebase
         var config = {
@@ -221,7 +223,21 @@ function closeNav() {
                 document.getElementById("name").innerHTML = name;
                 document.getElementById("image").src = imageUrl;
                 document.getElementById("email").innerHTML = email;
-
+                
+                firebase.database().ref('/users').once('value').then(function(snapshot) {
+                    var data = (snapshot.val());
+                    dataarray = [data]
+                users = dataarray[0];
+                    
+                    for (var u in users) {
+                        if (users[u].email == email) {
+                            facebookname = users[u].facebook
+                            facebookUrl = "https://www.facebook.com/" + facebookname;
+                            //alert(facebookUrl);
+                        }
+                    }
+                });
+                
                 firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
@@ -264,10 +280,10 @@ function closeNav() {
         
         // write user data
         function writeUserData(userId, name, email, imageUrl) {
-            firebase.database().ref('users/' + userId).set({
+            firebase.database().ref('users/' + userId).update({
                 username: name,
                 email: email,
-                profile_picture : imageUrl
+                profile_picture : imageUrl,
             });
         }
         
@@ -373,7 +389,18 @@ function closeNav() {
   <a href="#"><i class="fa fa-dribbble"></i></a> 
   <a href="#"><i class="fa fa-twitter"></i></a> 
   <a href="#"><i class="fa fa-linkedin"></i></a> 
-  <a href="#"><i class="fa fa-facebook"></i></a> 
+  <a href="" id = "facebooklink"><i class="fa fa-facebook" ></i></a>
+        
+  <button class="collapsible">Edit Profile</button>
+<div class="content">
+  <p> Facebook </p>
+  <textarea rows = "1" cols = "30" id = "Facebook">Insert your facebook username</textarea>
+    <button type="button" onclick="facebook()">Submit</button>
+    
+    <p id = demo> </p>
+</div>   
+        
+        
   <p><button>Contact</button></p>
 </div>
   </div>
@@ -399,7 +426,32 @@ function closeNav() {
     <div id="mydata"></div>
     <div id="myphoto"></div>
         
-        
+        <style>
+        .collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+      </style>  
         
         
     </body>
@@ -408,6 +460,33 @@ function closeNav() {
     </center>
     
      <script>
+         
+         function facebook() {
+             
+             var face = document.getElementById("Facebook").value;
+             facebookusername = face;
+             document.getElementById("demo").innerHTML = face;
+             document.getElementById("facebooklink").href = facebookUrl;
+             firebase.database().ref('users/' + userId).update({
+                facebook : facebookusername
+            });
+             
+         }
+         
+         var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
     
     // Get the modal
 var modal = document.getElementById('myModal');
@@ -422,6 +501,8 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
+     document.getElementById("facebooklink").href = facebookUrl;
+    document.getElementById("Facebook").innerHTML = facebookname;
 }
 
 // When the user clicks on <span> (x), close the modal
