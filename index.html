@@ -79,10 +79,10 @@
 
   <!-- Overlay content -->
   <div class="overlay-content">
-    <a href="https://km-software.github.io/Social-Media/profile.html">Profile</a>
+    <a id = "profilemenu">Profile</a>
     <a href="#">Explore</a>
-    <a href="#">Notifications</a>
-    <a href="#">Settings</a>
+    <a href="https://km-software.github.io/Social-Media/aboutus.html">About Us</a>
+    <a onclick="signout()">Sign Out</a>
   </div>
 
 </div>
@@ -96,7 +96,7 @@ button {
   text-align: center;
   font-size: 16px;
   margin: 4px 2px;
-  opacity: 0.6;
+  opacity: 0.9;
   transition: 0.3s;
   display: inline-block;
   text-decoration: none;
@@ -107,7 +107,7 @@ button:hover {opacity: 1}
 </style>
     
 <!-- Use any element to open/show the overlay navigation menu -->
-<button onmouseover="openNav()" id = "menu">Menu</button>
+<button onclick="openNav()" id = "menu">Menu</button>
     
     <br>
     <br>
@@ -446,6 +446,8 @@ function closeNav() {
          
 
 <!-- The Modal -->
+         
+         
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
@@ -458,9 +460,9 @@ function closeNav() {
   <p id = "email"> </p>
   <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
   <p id = "school"> </p>
-  <a href="#"><i class="fa fa-dribbble"></i></a> 
+  
   <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
-  <a href="#"><i class="fa fa-linkedin"></i></a> 
+
   <a href="" id = "facebooklink"><i class="fa fa-facebook" ></i></a>
         
   <button class="collapsible">Edit Profile</button>
@@ -501,11 +503,11 @@ function closeNav() {
 
 </div>
 
-    <body>
+    
         
         
         <button onclick="signin()">Sign in</button>
-        <button onclick="signout()">Sign out</button>
+        
         <br>
        <br>
     
@@ -650,6 +652,20 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
+  modal.style.display = "block";
+     document.getElementById("facebooklink").href = facebookUrl;
+    document.getElementById("Facebook").innerHTML = facebookname;
+    document.getElementById("newusername1").innerHTML = "Username: " + changedusername;
+    document.getElementById("newusername").innerHTML = changedusername;
+    document.getElementById("bio").innerHTML = newbio;
+    document.getElementById("newbio").innerHTML = newbio;
+    document.getElementById("newschool").innerHTML = newschool;
+    document.getElementById("school").innerHTML = newschool;
+    document.getElementById("twitterlink").href = twitterUrl;
+    document.getElementById("newtwitter").innerHTML = twittername;
+}
+
+document.getElementById("profilemenu").onclick = function() {
   modal.style.display = "block";
      document.getElementById("facebooklink").href = facebookUrl;
     document.getElementById("Facebook").innerHTML = facebookname;
