@@ -107,8 +107,22 @@ button:hover {opacity: 1}
 </style>
     
 <!-- Use any element to open/show the overlay navigation menu -->
-<button onclick="openNav()" id = "menu">Menu</button>
+
+       <img id = "opennav" onclick="openNav()" src = "menu.png">  
+        
     
+         <style>
+             #opennav {
+                 position: absolute;
+                 height: 75px;
+                 width:75px;
+                 color:transparent;
+                 left:20px;
+                 top:20px;
+                 
+             }
+             
+         </style>
     <br>
     <br>
     
@@ -431,16 +445,27 @@ function closeNav() {
              
              #myprofile img {
                  position: absolute;
-                 top: -50px;
+                 top: -30px;
                  right: 8px;
                  height: 100px;
                  width: 100px;
              }
          </style>
          
-    
+    <div id = "mylogo">
+         <a href = "https://km-software.github.io/Social-Media/aboutus.html"><img src = "logo.png"></a>
+         
+         </div>
              
-             
+          <style>
+              #mylogo {
+              position: absolute;
+                 top: 10px;
+                 left: 100px;
+                 height: 100px;
+                 width: 100px;
+              }
+         </style>
              
              
          
