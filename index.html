@@ -83,7 +83,7 @@
     <a id = "profilemenu">Profile</a>
     <a href="#">Explore</a>
     <a href="https://km-software.github.io/Social-Media/aboutus.html">About HIVE</a>
-    <a onclick="signout()">Sign Out</a>
+    <a onclick="signout()">Buzz me out!</a>
   </div>
 
 </div>
@@ -560,7 +560,7 @@ function closeNav() {
     
         
         
-        <button onclick="signin()">Sign in</button>
+        <button onclick="signin()">Buzz me in!</button>
         
         <br>
        <br>
@@ -675,18 +675,6 @@ height: 100%;
              document.getElementById("newusername1").innerHTML = "Username: " + newusername 
          }
          
-         function bio() {
-              var changedbio = document.getElementById("newbio").value;
-             newbio = changedbio;
-               firebase.database().ref('users/' + userId).update({
-                bio : newbio
-             });
-             //document.getElementById("demo2").innerHTML = newbio;
-             document.getElementById("bio").innerHTML = newbio;
-             document.getElementById("newbio").innerHTML = newbio;
-            // document.getElementById("newusername1").innerHTML = "Username: " + newusername 
-         }
-         
          function school() {
              var changedschool = document.getElementById("newschool").value;
              newschool = changedschool;
@@ -697,33 +685,27 @@ height: 100%;
              document.getElementById("school").innerHTML = newschool;
          }
          
+         function bio() {
+              var changedbio = document.getElementById("newbio").value;
+             newbio = changedbio;
+               firebase.database().ref('users/' + userId).update({
+                bio : newbio
+             });
+             
+             document.getElementById("bio").innerHTML = newbio;
+             document.getElementById("newbio").innerHTML = newbio;
+            
+         }
          
-         var coll = document.getElementsByClassName("collapsible");
-var i;
+         
+         
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-    
-    // Get the modal
 var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-           
 
-// When the user clicks on the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
      document.getElementById("facebooklink").href = facebookUrl;
@@ -750,6 +732,21 @@ document.getElementById("profilemenu").onclick = function() {
     document.getElementById("school").innerHTML = newschool;
     document.getElementById("twitterlink").href = twitterUrl;
     document.getElementById("newtwitter").innerHTML = twittername;
+}
+
+ var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
 }
 
 // When the user clicks on <span> (x), close the modal
