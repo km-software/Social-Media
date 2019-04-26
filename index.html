@@ -1,5 +1,6 @@
 <html>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     
     <!-- Trigger/Open The Modal -->
 
@@ -81,7 +82,7 @@
   <div class="overlay-content">
     <a id = "profilemenu">Profile</a>
     <a href="#">Explore</a>
-    <a href="https://km-software.github.io/Social-Media/aboutus.html">About Us</a>
+    <a href="https://km-software.github.io/Social-Media/aboutus.html">About HIVE</a>
     <a onclick="signout()">Sign Out</a>
   </div>
 
@@ -190,6 +191,7 @@ button:hover {opacity: 1}
 }
     </style>
     
+        
     <script>
     /* Open when someone clicks on the span element */
 function openNav() {
@@ -200,6 +202,10 @@ function closeNav() {
   document.getElementById("myNav").style.width = "0%";
 }
     </script>
+         
+         <!-- The Modal -->
+
+         
     <script>
        
         //var facebookUrl = "";
@@ -219,6 +225,7 @@ function closeNav() {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user == null) {
                 alert("Not logged in.");
+                signedin = false;
                 return;
             } else {
                 userId = user.uid;
@@ -230,6 +237,7 @@ function closeNav() {
                 writeUserData(userId, name, email, imageUrl);
                 
                 // write data to document
+                signedin = true;
                 mydiv = document.getElementById("mydata");
                 mydiv.innerHTML = name
                 myphotodiv = document.getElementById("myphoto");
@@ -286,6 +294,8 @@ function closeNav() {
                     
                 });
                 
+                
+                
                 firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
@@ -306,6 +316,8 @@ function closeNav() {
                 });
             } // end user null check
         }); // end check auth state
+        
+      
         
         function encodeImageFileAsURL() {
 
@@ -427,10 +439,27 @@ function closeNav() {
              
          </div>
          <div id = "profile">
+             <p id=yourprofile>
              Your Profile
+                 </p>
          </div>
              </div>
          <style>
+             
+             #yourprofile {
+                  background-color: blue;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.9;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+             }
              #profile {
                   position: absolute;
                  top: 120px;
@@ -446,7 +475,7 @@ function closeNav() {
              #myprofile img {
                  position: absolute;
                  top: -30px;
-                 right: 8px;
+                 right: 40px;
                  height: 100px;
                  width: 100px;
              }
@@ -537,7 +566,7 @@ function closeNav() {
        <br>
     
         <form>
-            Tweet:<br>
+            <h3 id = "tweettext">Insert Buzz Below</h3><br>
             <textarea id="twit" type="text" name="thetweet" cols="100" rows="4"></textarea>
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
@@ -550,6 +579,25 @@ function closeNav() {
     <div id="myphoto"></div>
         
         <style>
+            
+            #tweettext {
+                background-color: blue;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.9;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+                
+                
+            }
+            
+            
         .collapsible {
   background-color: #eee;
   color: #444;
