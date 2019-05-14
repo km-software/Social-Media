@@ -354,9 +354,9 @@ function closeNav() {
                     for (var u in users) {
                         if (users[u].email == email) {
                             if (users[u].profile_picture2 != null) {
-                                infoPic = users[u].profile_picture2;
+                                picture = users[u].profile_picture2;
                             } else {
-                                infoPic = users[u].profile_picture;
+                                picture = users[u].profile_picture;
                             }
                         }
                     }
@@ -376,8 +376,8 @@ function closeNav() {
                             //alert(facebookUrl);
                         }
                     }
-                    document.getElementById("myprofile").innerHTML = "<img src='" + infoPic + "'/>";
-                     document.getElementById("image").src = infoPic;
+                    document.getElementById("myprofile").innerHTML = "<img src='" + picture + "'/>";
+                     document.getElementById("image").src = picture;
                 });
                 
                 
@@ -1065,7 +1065,7 @@ height: 100%;
         }
          
           function updateInfo() {
-            var infoPic = "";
+            var picture = "";
           }
 
 var modal = document.getElementById('myModal');
