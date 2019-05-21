@@ -55,6 +55,20 @@
   text-decoration: none;
   cursor: pointer;
 }
+        
+        .close1 {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
         
         
@@ -200,7 +214,7 @@ function myFunction() {
 }
 
 function showPage() {
-  document.getElementById("loader").style.display = "none";
+//document.getElementById("loader").style.display = "none";
   document.getElementById("myDiv").style.display = "block";
 }
 </script>
@@ -310,7 +324,7 @@ function closeNav() {
                 name = user.displayName;
                 imageUrl = user.photoURL;
                 email = user.email;
-                updateInfo();   
+                //updateInfo();   
                 // write user data to users
                 writeUserData(userId, name, email, imageUrl);
                 
@@ -324,6 +338,7 @@ function closeNav() {
                 
                 firebase.database().ref('/users').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
+                    
                     dataarray = [data]
                 users = dataarray[0];
                     
@@ -447,6 +462,61 @@ function closeNav() {
             });
         }
         
+          function searchforuser() {
+              for(var abc = 0; abc<userArray.length; abc++) {
+              if(document.getElementById("myInput").value == userArray[abc]) {
+                   var searchedU = document.getElementById("myInput").value;
+                  firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                var users = (snapshot.val());
+                      for(var u in users) {
+                        if (users[u].username == searchedU || users[u].newusername == searchedU) {
+                            if (users[u].profile_picture2 != null) {
+                                document.getElementById("image11").src = users[u].profile_picture2;
+                           
+                            } else {
+                                document.getElementById("image11").src = users[u].profile_picture; 
+                            }
+                            document.getElementById("name1").innerHTML = users[u].username;
+                            if(users[u].newusername != null) {
+                            document.getElementById("newusername11").innerHTML = "Username: " + users[u].newusername;
+                            } else {
+                               document.getElementById("newusername11").innerHTML = ""; 
+                            }
+                            document.getElementById("email1").innerHTML = users[u].email;
+                            if(users[u].bio != null) {
+                                document.getElementById("bio1").innerHTML = users[u].bio;
+                            } else {
+                                document.getElementById("bio1").innerHTML = "";
+                            }
+                             if(users[u].school != null) {
+                            document.getElementById("school1").innerHTML = users[u].school;
+                             } else {
+                                 document.getElementById("school1").innerHTML = "";
+                             }
+                            var ufacebook = "https://www.facebook.com/" + users[u].facebook;
+                            var utwitter = "https://twitter.com/" + users[u].twitter;
+                            document.getElementById("facebooklink1").href = ufacebook;
+                            document.getElementById("twitterlink1").href = utwitter;
+                        }
+                           
+                      }
+                      
+                    });
+                 
+                 
+                  var modal1 = document.getElementById('myModal1');
+                  modal1.style.display = "block";
+                  var span1 = document.getElementsByClassName("close1")[0];
+                  span1.onclick = function() {
+                  modal1.style.display = "none";
+                       
+                         
+                    }
+               }  
+                 
+            }
+         }
+        
         function updatetweets(data) {
             
             document.getElementById("mytweets").innerHTML = '<div id="loader"></div>';
@@ -455,6 +525,9 @@ function closeNav() {
             var mytab = "<table>";
             users = data[1]; // put on top, because changed data - not good coding change later
             data = data[0];
+            
+           
+            
             
             for (var u in data) {
                 for (var t in data[u]) {
@@ -496,10 +569,73 @@ function closeNav() {
                     } else {
                         var timeago = day;
                     }
+                    
+                    
+                     firebase.database().ref('/tweets/' + userId).once('value', function(snapshot) {
+             for (key of Object.keys(data)) {
+
+            console.log(key);
+                       }
+                         
+                         
+
+           });
                        
                         
                     //alert(day + hour + minute);
+                    
+                    if (data[u][t].vid != null && data[u][t].vid != "") {
                      if (users[u].profile_picture2 != null) {
+                    if (data[u][t].img != "" && data[u][t].vid == "") {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                    } else if (data[u][t].img == "" && data[u][t].vid == ""){
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "</td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>";
+                        
+                    } else if (data[u][t].img == "" && data[u][t].vid != "") {
+                         mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><iframe src='" + data[u][t].vid + "' width='300px' height='300px'frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen> </iframe> </td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                             
+                    } else {
+                        alert("You cannot post both a video and a picture");
+                    }
+                     } else {
+                          if (data[u][t].img != "" && data[u][t].vid == "") {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                    } else if (data[u][t].img == "" && data[u][t].vid == ""){
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "</td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>";
+                        
+                    } else if (data[u][t].img == "" && data[u][t].vid != "") {
+                         mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><iframe src='" + data[u][t].vid + "' width='300px' height='300px'frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> </td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                             
+                    } else {
+                        alert("You cannot post both a video and a picture");
+                    }  
+                     }
+                    } else {
+                        if (users[u].profile_picture2 != null) {
                     if (data[u][t].img != "") {
                         mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
                         mytab = mytab + "<td>" + users[u].username + "</td>";
@@ -511,11 +647,10 @@ function closeNav() {
                         mytab = mytab + "<td>" + users[u].username + "</td>";
                         mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
                         mytab = mytab + "<td>" + timeago + "</td>";
-                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>";
-                        
-                    } 
-                     } else {
-                         if (data[u][t].img != "") {
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>"; 
+                    }
+                        } else {
+                             if (data[u][t].img != "") {
                         mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
                         mytab = mytab + "<td>" + users[u].username + "</td>";
                         mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
@@ -527,10 +662,9 @@ function closeNav() {
                         mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
                         mytab = mytab + "<td>" + timeago + "</td>";
                         mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>";
-                        
-                    }  
-                     }
-                    
+                        }
+                        }
+                    }
                     mytab = mytab + "</tr>";
                 }   
             }
@@ -548,10 +682,11 @@ function closeNav() {
             
             var twitdoc = document.getElementById("twit");
             var twitimg = document.getElementById("imgTest");
+            var vidlink = document.getElementById("vidarea").value;
             var nameValue = twitdoc.value;
             var imgValue = twitimg.innerHTML;
             var js_time = Date.now();
-            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time, img: imgValue});
+            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time, img: imgValue, vid: vidlink});
             twitdoc.value = "";
             console.log("tweet written")
             
@@ -598,13 +733,13 @@ function closeNav() {
     </script>
          
     
-    <form autocomplete="off" action="/action_page.php">
+    <form autocomplete="off">
   <div class="autocomplete" style="width:300px;">
-    <input id="myInput" type="text" name="myCountry" placeholder="Search a User!">
+    <input id="myInput" type="text"  placeholder="Search a User!">
   </div>
-  <input type="submit">
+        
 </form>
-    
+    <button id = "searchuserbutton" onclick='searchforuser()'> Search </button>
     
     
     
@@ -630,6 +765,18 @@ body {
   position: relative;
   display: inline-block;
 }
+             
+             #vidarea {
+                 width: 35%;
+                 background-color: yellow;
+                 border-color: black;
+                 border: 1px solid transparent;
+                 font-size: 16px;
+                   padding: 10px;
+                 font-size: 16px;
+                  background-color: #f1f1f1;
+             }             
+             
 input {
   border: 1px solid transparent;
   background-color: #f1f1f1;
@@ -643,6 +790,7 @@ input[type=text] {
 input[type=submit] {
   background-color: blue;
   color: #fff;
+    width: 50%;
 }
 .autocomplete-items {
   position: absolute;
@@ -675,14 +823,17 @@ input[type=submit] {
     <script>
         var likes = 0;
         var numberoflikes = document.getElementById("amountoflikes");
-        numberoflikes.innerHTML = likes;
+        //numberoflikes.innerHTML = likes;
         function like() {
-           //user
+           
+            //var userId = document.getElementById("uid").innerHTML;
+          
+            
             likes = likes + 1;
-            var userId = document.getElementById("uid").innerHTML;
-            firebase.database().ref('tweets/' + userId + "/").push({likes: likes});
-        numberoflikes.innerHTML = likes;
-        }
+            //var userId = document.getElementById("uid").innerHTML;
+            //firebase.database().ref('tweets/' + userId + "/").push({likes: likes});
+        //numberoflikes.innerHTML = likes;
+       }
     
         function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -845,6 +996,28 @@ autocomplete(document.getElementById("myInput"), userArray);
          
 
 <!-- The Modal -->
+    
+    <div id="myModal1" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close1">&times;</span>
+    <div class="card">
+  <img  height = "300px" width = "300px" src = "" alt="Image" id="image11">
+<h1 id="name1"> </h1>
+  <p id = "newusername11"></p>
+  <p id = "email1"> </p>
+  <p id = "bio1"> </p>
+  <p id = "school1"> </p>
+  
+  <a href="" id = "twitterlink1"><i class="fa fa-twitter"></i></a> 
+
+  <a href="" id = "facebooklink1"><i class="fa fa-facebook" ></i></a>
+      </div>
+      </div>
+    </div>
+    
+        
          
          
 <div id="myModal" class="modal">
@@ -916,12 +1089,15 @@ autocomplete(document.getElementById("myInput"), userArray);
     
         <form>
             <h3 id = "tweettext">Insert Buzz Below</h3><br>
-            <textarea id="twit" type="text" name="thetweet" cols="100" rows="4">Insert Buzz Here</textarea>
+            <textarea id="twit" type="text" name="thetweet" cols="100" rows="4"></textarea>
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
     
         <br><input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
         <div id="imgTest" style="display:none;"></div>
+    <br>
+    <br>
+    <input type = "text" id = "vidarea" placeholder = "Insert the embedded link of the video. See our Help page for help."/>
         
     <br>
     <br>
@@ -1003,6 +1179,8 @@ height: 100%;
     
      <script>
          
+       
+         
          function facebook() {
              
              var face = document.getElementById("Facebook").value;
@@ -1064,9 +1242,9 @@ height: 100%;
             });
         }
          
-          function updateInfo() {
-            var picture = "";
-          }
+         // function updateInfo() {
+           // var picture = "";
+          //}
 
 var modal = document.getElementById('myModal');
 
@@ -1131,10 +1309,27 @@ window.onclick = function(event) {
     
  
 
-console.log(imageUrl);
-console.log(userId);
-         
-    
+
+    function refresh() {
+          firebase.database().ref('/tweets').once('value').then(function(snapshot) {
+                    var data = (snapshot.val());
+                    if (data == null) {
+                      console.log("No data found at /tweets/" + userId);  
+                    } else {
+                        
+                      firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                        var userdata = (snapshot.val());
+                        if (userdata != null) {
+                           dataarray = [data,userdata]
+                           console.log(dataarray)
+                           updatetweets(dataarray); 
+                        }
+                      });
+                     
+                    }
+                });
+    }
     </script>
-    
+
+    <button id = "refresh" onclick="refresh()"> Refresh </button>
 </html>
