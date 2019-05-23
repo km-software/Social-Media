@@ -8,7 +8,7 @@
 
 
     
-    
+    <img src="https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/rUCOI_aF-j791zc7s/storyblocks-fire-flame-blue-icon-on-a-white-background_SGbMrAFDG_thumb.jpg" id="logo">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -30,7 +30,6 @@
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
@@ -39,7 +38,6 @@
   border: 1px solid #888;
   width: 50%; /* Could be more or less, depending on screen size */
 }
-
 /* The Close Button */
 .close {
   color: #aaa;
@@ -47,14 +45,12 @@
   font-size: 28px;
   font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-
         
         
         tr:hover {background-color: #f5f5f5;}
@@ -102,8 +98,14 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
-
 button:hover {opacity: 1}
+    
+    #logo {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    }
+    
 </style>
     
 <!-- Use any element to open/show the overlay navigation menu -->
@@ -187,6 +189,8 @@ function closeNav() {
 }
     </script>
     <script>
+       
+        //var facebookUrl = "";
         
         // Initialize Firebase
         var config = {
@@ -218,10 +222,58 @@ function closeNav() {
                 mydiv.innerHTML = name
                 myphotodiv = document.getElementById("myphoto");
                 myphotodiv.innerHTML = "<img src='" + imageUrl + "'/>";
+                document.getElementById("myprofile").innerHTML = "<img src='" + imageUrl + "'/>";
                 document.getElementById("name").innerHTML = name;
                 document.getElementById("image").src = imageUrl;
                 document.getElementById("email").innerHTML = email;
-
+                
+                firebase.database().ref('/users').once('value').then(function(snapshot) {
+                    var data = (snapshot.val());
+                    dataarray = [data]
+                users = dataarray[0];
+                    
+                    for (var u in users) {
+                        if (users[u].email == email) {
+                            facebookname = users[u].facebook
+                            facebookUrl = "https://www.facebook.com/" + facebookname;
+                            //alert(facebookUrl);
+                        }
+                    }
+                    
+                      for (var u in users) {
+                        if (users[u].email == email) {
+                            changedusername = users[u].newusername
+                            //alert(facebookUrl);
+                        }
+                    }
+                    
+                     
+                    for (var u in users) {
+                        if (users[u].email == email) {
+                            newbio = users[u].bio
+                            //facebookUrl = "https://www.facebook.com/" + facebookname;
+                            //alert(facebookUrl);
+                        }
+                    }
+                    
+                     for (var u in users) {
+                        if (users[u].email == email) {
+                            newschool = users[u].school
+                            //facebookUrl = "https://www.facebook.com/" + facebookname;
+                            //alert(facebookUrl);
+                        }
+                    }
+                    
+                     for (var u in users) {
+                        if (users[u].email == email) {
+                            twittername = users[u].twitter
+                            twitterUrl = "https://twitter.com/" + twittername;
+                            //alert(facebookUrl);
+                        }
+                    }
+                    
+                });
+                
                 firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
@@ -244,7 +296,6 @@ function closeNav() {
         }); // end check auth state
         
         function encodeImageFileAsURL() {
-
             var filesSelected = document.getElementById("inputFileToLoad").files;
             if (filesSelected.length > 0) {
                 var fileToLoad = filesSelected[0];
@@ -264,10 +315,11 @@ function closeNav() {
         
         // write user data
         function writeUserData(userId, name, email, imageUrl) {
-            firebase.database().ref('users/' + userId).set({
+            firebase.database().ref('users/' + userId).update({
                 username: name,
                 email: email,
-                profile_picture : imageUrl
+                profile_picture : imageUrl,
+              //  facebook : facebookusername
             });
         }
         
@@ -284,12 +336,12 @@ function closeNav() {
                     var time = date.toString();
                     if (data[u][t].img != "") {
                         mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
-                        mytab = mytab + "<td>" + users[u].email + "</td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
                         mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
                         mytab = mytab + "<td>" + time + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
                     } else {
                         mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
-                        mytab = mytab + "<td>" + users[u].email + "</td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
                         mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
                         mytab = mytab + "<td>" + time + "</td>";
                         
@@ -353,10 +405,45 @@ function closeNav() {
             });
         }
         
-
     
     </script>
-         <button id="myBtn">Profile</button>
+         
+         <div id = "myBtn">
+             <div id = "myprofile">
+             
+         </div>
+         <div id = "profile">
+             Your Profile
+         </div>
+             </div>
+         <style>
+             #profile {
+                  position: absolute;
+                 top: 120px;
+                 right: 18px;
+                 
+             }
+             
+             
+             #myprofile {
+                 position: relative;
+             }
+             
+             #myprofile img {
+                 position: absolute;
+                 top: -50px;
+                 right: 0px;
+                 height: 100px;
+                 width: 100px;
+             }
+         </style>
+         
+    
+             
+             
+             
+             
+         
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -367,13 +454,47 @@ function closeNav() {
     <div class="card">
   <img  height = "300px" width = "300px" src = "" alt="Image" id="image">
   <h1 id="name"></h1>
+  <p id = "newusername1">Make a username in the "Edit Profile" tab!</p>
   <p id = "email"> </p>
-  <p class="title">CEO & Founder, Example</p>
-  <p>Harvard University</p>
+  <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
+  <p id = "school"> </p>
   <a href="#"><i class="fa fa-dribbble"></i></a> 
-  <a href="#"><i class="fa fa-twitter"></i></a> 
+  <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
   <a href="#"><i class="fa fa-linkedin"></i></a> 
-  <a href="#"><i class="fa fa-facebook"></i></a> 
+  <a href="" id = "facebooklink"><i class="fa fa-facebook" ></i></a>
+        
+  <button class="collapsible">Edit Profile</button>
+<div class="content">
+    <p> Change your Username </p>   
+    <textarea rows = "1" cols = "30" id = "newusername">Insert your desired username</textarea>
+    <button type="button" onclick="changeusername()">Submit</button>
+    <p id = "demo1"> </p>
+    
+    <p> Change your Bio </p>
+    <textarea rows = "3" cols = "30" id = "newbio">Insert your bio here</textarea>
+    <button type="button" onclick="bio()">Submit</button>
+    <p id = "demo2"> </p>
+    
+    <p> School </p>
+    <textarea rows = "1" cols = "30" id = "newschool">Insert your school here</textarea>
+    <button type="button" onclick="school()">Submit</button>
+    <p id = "demo3"> </p>
+    
+  <p> Facebook Username </p>
+  <textarea rows = "1" cols = "30" id = "Facebook">Insert your facebook username</textarea>
+    <button type="button" onclick="facebook()">Submit</button>
+    <p id = demo> </p>
+    
+    <p> Twitter Username</p>
+     <textarea rows = "1" cols = "30" id = "newtwitter">Insert your twitter username</textarea>
+    <button type="button" onclick="twitter()">Submit</button>
+    <p id = demo4> </p>
+    
+</div>   
+        
+        
+        
+        
   <p><button>Contact</button></p>
 </div>
   </div>
@@ -399,7 +520,30 @@ function closeNav() {
     <div id="mydata"></div>
     <div id="myphoto"></div>
         
-        
+        <style>
+        .collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+      </style>  
         
         
     </body>
@@ -408,27 +552,101 @@ function closeNav() {
     </center>
     
      <script>
+         
+         function facebook() {
+             
+             var face = document.getElementById("Facebook").value;
+             facebookname = face;
+           //  document.getElementById("demo").innerHTML = face;
+             document.getElementById("facebooklink").href = facebookUrl;
+             firebase.database().ref('users/' + userId).update({
+                facebook : facebookname
+            });
+             
+         }
+         
+         function twitter() {
+              var twit = document.getElementById("newtwitter").value;
+             twittername = twit;
+           //  document.getElementById("demo").innerHTML = face;
+             document.getElementById("twitterlink").href = twitterUrl;
+             firebase.database().ref('users/' + userId).update({
+                twitter : twittername
+            });
+         }
+         
+         function changeusername() {
+              var newusername = document.getElementById("newusername").value;
+             changedusername = newusername;
+               firebase.database().ref('users/' + userId).update({
+                newusername : changedusername
+             });
+             document.getElementById("newusername").innerHTML = changedusername;
+             document.getElementById("newusername1").innerHTML = "Username: " + newusername 
+         }
+         
+         function bio() {
+              var changedbio = document.getElementById("newbio").value;
+             newbio = changedbio;
+               firebase.database().ref('users/' + userId).update({
+                bio : newbio
+             });
+             //document.getElementById("demo2").innerHTML = newbio;
+             document.getElementById("bio").innerHTML = newbio;
+             document.getElementById("newbio").innerHTML = newbio;
+            // document.getElementById("newusername1").innerHTML = "Username: " + newusername 
+         }
+         
+         function school() {
+             var changedschool = document.getElementById("newschool").value;
+             newschool = changedschool;
+               firebase.database().ref('users/' + userId).update({
+                school : newschool
+               });
+             document.getElementById("newschool").innerHTML = newschool;
+             document.getElementById("school").innerHTML = newschool;
+         }
+         
+         
+         var coll = document.getElementsByClassName("collapsible");
+var i;
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
     
     // Get the modal
 var modal = document.getElementById('myModal');
-
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
            
-
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
+     document.getElementById("facebooklink").href = facebookUrl;
+    document.getElementById("Facebook").innerHTML = facebookname;
+    document.getElementById("newusername1").innerHTML = "Username: " + changedusername;
+    document.getElementById("newusername").innerHTML = changedusername;
+    document.getElementById("bio").innerHTML = newbio;
+    document.getElementById("newbio").innerHTML = newbio;
+    document.getElementById("newschool").innerHTML = newschool;
+    document.getElementById("school").innerHTML = newschool;
+    document.getElementById("twitterlink").href = twitterUrl;
+    document.getElementById("newtwitter").innerHTML = twittername;
 }
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
 }
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
@@ -437,7 +655,6 @@ window.onclick = function(event) {
 }
     
  
-
 console.log(imageUrl);
 console.log(userId);
          
