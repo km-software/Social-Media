@@ -1,5 +1,6 @@
 <html>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     
     <!-- Trigger/Open The Modal -->
 
@@ -51,6 +52,24 @@
   text-decoration: none;
   cursor: pointer;
 }
+<<<<<<< HEAD
+=======
+        
+        .close1 {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
         
         
         tr:hover {background-color: #f5f5f5;}
@@ -75,10 +94,10 @@
 
   <!-- Overlay content -->
   <div class="overlay-content">
-    <a href="https://km-software.github.io/Social-Media/profile.html">Profile</a>
+    <a id = "profilemenu">Profile</a>
     <a href="#">Explore</a>
-    <a href="#">Notifications</a>
-    <a href="#">Settings</a>
+    <a href="https://km-software.github.io/Social-Media/aboutus.html">About HIVE</a>
+    <a onclick="signout()">Buzz me out!</a>
   </div>
 
 </div>
@@ -92,7 +111,7 @@ button {
   text-align: center;
   font-size: 16px;
   margin: 4px 2px;
-  opacity: 0.6;
+  opacity: 0.9;
   transition: 0.3s;
   display: inline-block;
   text-decoration: none;
@@ -109,10 +128,102 @@ button:hover {opacity: 1}
 </style>
     
 <!-- Use any element to open/show the overlay navigation menu -->
-<button onmouseover="openNav()" id = "menu">Menu</button>
+
+       <img id = "opennav" onclick="openNav()" src = "menu.png">  
+        
     
+         <style>
+             #opennav {
+                 position: absolute;
+                 height: 75px;
+                 width:75px;
+                 color:transparent;
+                 left:20px;
+                 top:20px;
+                 
+             }
+             
+         </style>
     <br>
     <br>
+         
+         <style>
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 52.25%;
+  top: 77%;
+  z-index: 1;
+  width: 33px;
+  height: 33px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  width: 90px;
+  height: 90px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+</style>
+</head>
+<body onload="myFunction()" style="margin:0;">
+    
+   <script type='text/javascript' data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({c: 'e5e109ef-7655-4e1f-8621-b17f661c38c1', f: true }); done = true; } }; })();</script>
+
+
+
+
+<div style="display:none;" id="myDiv" class="animate-bottom">
+ 
+</div>
+
+<script>
+var myVar;
+
+function myFunction() {
+  myVar = setTimeout(showPage, 3000);
+}
+
+function showPage() {
+//document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
     
     
     <style>
@@ -178,6 +289,7 @@ button:hover {opacity: 1}
 }
     </style>
     
+        
     <script>
     /* Open when someone clicks on the span element */
 function openNav() {
@@ -188,6 +300,10 @@ function closeNav() {
   document.getElementById("myNav").style.width = "0%";
 }
     </script>
+         
+         <!-- The Modal -->
+
+         
     <script>
        
         //var facebookUrl = "";
@@ -207,28 +323,39 @@ function closeNav() {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user == null) {
                 alert("Not logged in.");
+                signedin = false;
                 return;
             } else {
                 userId = user.uid;
                 name = user.displayName;
                 imageUrl = user.photoURL;
                 email = user.email;
-                    
+                //updateInfo();   
                 // write user data to users
                 writeUserData(userId, name, email, imageUrl);
                 
                 // write data to document
+<<<<<<< HEAD
                 mydiv = document.getElementById("mydata");
                 mydiv.innerHTML = name
                 myphotodiv = document.getElementById("myphoto");
                 myphotodiv.innerHTML = "<img src='" + imageUrl + "'/>";
                 document.getElementById("myprofile").innerHTML = "<img src='" + imageUrl + "'/>";
+=======
+                signedin = true;
+               
+                
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                 document.getElementById("name").innerHTML = name;
-                document.getElementById("image").src = imageUrl;
+               
                 document.getElementById("email").innerHTML = email;
                 
                 firebase.database().ref('/users').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
+<<<<<<< HEAD
+=======
+                    
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                     dataarray = [data]
                 users = dataarray[0];
                     
@@ -256,6 +383,19 @@ function closeNav() {
                         }
                     }
                     
+<<<<<<< HEAD
+=======
+                    for (var u in users) {
+                        if (users[u].email == email) {
+                            if (users[u].profile_picture2 != null) {
+                                picture = users[u].profile_picture2;
+                            } else {
+                                picture = users[u].profile_picture;
+                            }
+                        }
+                    }
+                    
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                      for (var u in users) {
                         if (users[u].email == email) {
                             newschool = users[u].school
@@ -271,9 +411,18 @@ function closeNav() {
                             //alert(facebookUrl);
                         }
                     }
+<<<<<<< HEAD
                     
                 });
                 
+=======
+                    document.getElementById("myprofile").innerHTML = "<img src='" + picture + "'/>";
+                     document.getElementById("image").src = picture;
+                });
+                
+                
+                
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                 firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
@@ -294,6 +443,8 @@ function closeNav() {
                 });
             } // end user null check
         }); // end check auth state
+        
+      
         
         function encodeImageFileAsURL() {
             var filesSelected = document.getElementById("inputFileToLoad").files;
@@ -323,30 +474,222 @@ function closeNav() {
             });
         }
         
+        var userArray = [];
+        findUsers();
+        
+        function findUsers() {
+            
+            firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                var users = (snapshot.val());
+                for (u in users) {
+                userArray.push(users[u].username);
+            }
+            });
+        }
+        
+          function searchforuser() {
+              for(var abc = 0; abc<userArray.length; abc++) {
+              if(document.getElementById("myInput").value == userArray[abc]) {
+                   var searchedU = document.getElementById("myInput").value;
+                  firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                var users = (snapshot.val());
+                      for(var u in users) {
+                        if (users[u].username == searchedU || users[u].newusername == searchedU) {
+                            if (users[u].profile_picture2 != null) {
+                                document.getElementById("image11").src = users[u].profile_picture2;
+                           
+                            } else {
+                                document.getElementById("image11").src = users[u].profile_picture; 
+                            }
+                            document.getElementById("name1").innerHTML = users[u].username;
+                            if(users[u].newusername != null) {
+                            document.getElementById("newusername11").innerHTML = "Username: " + users[u].newusername;
+                            } else {
+                               document.getElementById("newusername11").innerHTML = ""; 
+                            }
+                            document.getElementById("email1").innerHTML = users[u].email;
+                            if(users[u].bio != null) {
+                                document.getElementById("bio1").innerHTML = users[u].bio;
+                            } else {
+                                document.getElementById("bio1").innerHTML = "";
+                            }
+                             if(users[u].school != null) {
+                            document.getElementById("school1").innerHTML = users[u].school;
+                             } else {
+                                 document.getElementById("school1").innerHTML = "";
+                             }
+                            var ufacebook = "https://www.facebook.com/" + users[u].facebook;
+                            var utwitter = "https://twitter.com/" + users[u].twitter;
+                            document.getElementById("facebooklink1").href = ufacebook;
+                            document.getElementById("twitterlink1").href = utwitter;
+                        }
+                           
+                      }
+                      
+                    });
+                 
+                 
+                  var modal1 = document.getElementById('myModal1');
+                  modal1.style.display = "block";
+                  var span1 = document.getElementsByClassName("close1")[0];
+                  span1.onclick = function() {
+                  modal1.style.display = "none";
+                       
+                         
+                    }
+               }  
+                 
+            }
+         }
+        
         function updatetweets(data) {
+            
+            document.getElementById("mytweets").innerHTML = '<div id="loader"></div>';
+            
             //var mylist = "<ul>";
             var mytab = "<table>";
             users = data[1]; // put on top, because changed data - not good coding change later
             data = data[0];
+            
+           
+            
             
             for (var u in data) {
                 for (var t in data[u]) {
                     mytab = mytab + "<tr>";
                     var date = new Date(data[u][t].time);
                     var time = date.toString();
-                    if (data[u][t].img != "") {
+                    var day = time.substring(4,10);
+                    var hour = time.substring(16,18);
+                    var minute = time.substring(19,21);
+                    var second  = time.substring(22,24);
+                    var timenow = new Date(Date.now()).toString();
+                    
+                    if (timenow.substring(4,10) == day) {
+                       if (timenow.substring(16,18) == hour) {
+                          if(timenow.substring(19,21) == minute) {
+                              var ago = Number(timenow.substring(22,24)) - Number(second);
+                           if (ago == 1) {
+                              
+                              var timeago = ago + " second ago";
+                          } else {
+                              var timeago = ago + " seconds ago";
+                          }
+                          } else {
+                            var ago = Number(timenow.substring(19,21)) - Number(minute);
+                           if (ago == 1) {
+                               var timeago = ago + " minute ago";
+                           } else {
+                            var timeago = ago + " minutes ago";
+                           }
+                          }
+                        } else {
+                            var ago = Number(timenow.substring(16,18)) - Number(hour);
+                            if (ago == 1) {
+                                var timeago = ago + " hour ago";
+                            } else {
+                            var timeago = ago + " hours ago";
+                            }
+                        }
+                    } else {
+                        var timeago = day;
+                    }
+                    
+                    
+                     firebase.database().ref('/tweets/' + userId).once('value', function(snapshot) {
+             for (key of Object.keys(data)) {
+
+            console.log(key);
+                       }
+                         
+                         
+
+           });
+                       
+                        
+                    //alert(day + hour + minute);
+                    
+                    if (data[u][t].vid != null && data[u][t].vid != "") {
+                     if (users[u].profile_picture2 != null) {
+                    if (data[u][t].img != "" && data[u][t].vid == "") {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                    } else if (data[u][t].img == "" && data[u][t].vid == ""){
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "</td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>";
+                        
+                    } else if (data[u][t].img == "" && data[u][t].vid != "") {
+                         mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><iframe src='" + data[u][t].vid + "' width='300px' height='300px'frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen> </iframe> </td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                             
+                    } else {
+                        alert("You cannot post both a video and a picture");
+                    }
+                     } else {
+                          if (data[u][t].img != "" && data[u][t].vid == "") {
                         mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
                         mytab = mytab + "<td>" + users[u].username + "</td>";
                         mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
-                        mytab = mytab + "<td>" + time + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                        mytab = mytab + "<td>" + timeago + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                    } else if (data[u][t].img == "" && data[u][t].vid == ""){
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "</td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>";
+                        
+                    } else if (data[u][t].img == "" && data[u][t].vid != "") {
+                         mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><iframe src='" + data[u][t].vid + "' width='300px' height='300px'frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> </td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                             
+                    } else {
+                        alert("You cannot post both a video and a picture");
+                    }  
+                     }
+                    } else {
+                        if (users[u].profile_picture2 != null) {
+                    if (data[u][t].img != "") {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
+                    } else {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "</td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>"; 
+                    }
+                        } else {
+                             if (data[u][t].img != "") {
+                        mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
+                        mytab = mytab + "<td>" + users[u].username + "</td>";
+                        mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
+                        mytab = mytab + "<td>" + timeago + "<br><img src='" + data[u][t].img + "' width='300px'></td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p></td>";
                     } else {
                         mytab = mytab + "<td><img src='" + users[u].profile_picture + "' width='50px'></td>";
                         mytab = mytab + "<td>" + users[u].username + "</td>";
                         mytab = mytab + "<td>" + data[u][t].tweet + "</td>";
-                        mytab = mytab + "<td>" + time + "</td>";
-                        
-                        
-                    } 
+                        mytab = mytab + "<td>" + timeago + "</td>";
+                        mytab = mytab + "<td>" + "<button onclick='like()'> <img src='like.png' width=30px></button><br><p id='amountoflikes'> </p> </td>";
+                        }
+                        }
+                    }
                     mytab = mytab + "</tr>";
                 }   
             }
@@ -357,15 +700,18 @@ function closeNav() {
             mytdiv.innerHTML = mytab;
         }
         
+        
+        
         // write tweets to firebase
         function tweet() {
             
             var twitdoc = document.getElementById("twit");
             var twitimg = document.getElementById("imgTest");
+            var vidlink = document.getElementById("vidarea").value;
             var nameValue = twitdoc.value;
             var imgValue = twitimg.innerHTML;
             var js_time = Date.now();
-            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time, img: imgValue});
+            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time, img: imgValue, vid: vidlink});
             twitdoc.value = "";
             console.log("tweet written")
             
@@ -376,10 +722,12 @@ function closeNav() {
                     } else { 
                         firebase.database().ref('/users').once('value').then(function(snapshot) { 
                         var userdata = (snapshot.val());
+                            
                         if (userdata != null) {
                            dataarray = [data,userdata]
                            console.log(dataarray)
                            updatetweets(dataarray); 
+                            
                         }
                       });
                     }
@@ -408,11 +756,26 @@ function closeNav() {
     
     </script>
          
+<<<<<<< HEAD
+=======
+    
+    <form autocomplete="off">
+  <div class="autocomplete" style="width:300px;">
+    <input id="myInput" type="text"  placeholder="Search a User!">
+  </div>
+        
+</form>
+    <button id = "searchuserbutton" onclick='searchforuser()'> Search </button>
+    
+    
+    
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
          <div id = "myBtn">
              <div id = "myprofile">
              
          </div>
          <div id = "profile">
+<<<<<<< HEAD
              Your Profile
          </div>
              </div>
@@ -421,6 +784,220 @@ function closeNav() {
                   position: absolute;
                  top: 120px;
                  right: 18px;
+=======
+             <p id=yourprofile>
+             Your Profile
+                 </p>
+         </div>
+             </div>
+         <style>
+             
+             
+             * { box-sizing: border-box; }
+body {
+  font: 16px Arial; 
+}
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+             
+             #vidarea {
+                 width: 35%;
+                 background-color: yellow;
+                 border-color: black;
+                 border: 1px solid transparent;
+                 font-size: 16px;
+                   padding: 10px;
+                 font-size: 16px;
+                  background-color: #f1f1f1;
+             }             
+             
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: blue;
+  color: #fff;
+    width: 50%;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: blue !important; 
+  color: #ffffff; 
+}
+             
+    </style>    
+    <script>
+        var likes = 0;
+        var numberoflikes = document.getElementById("amountoflikes");
+        //numberoflikes.innerHTML = likes;
+        function like() {
+           
+            //var userId = document.getElementById("uid").innerHTML;
+          
+            
+            likes = likes + 1;
+            //var userId = document.getElementById("uid").innerHTML;
+            //firebase.database().ref('tweets/' + userId + "/").push({likes: likes});
+        //numberoflikes.innerHTML = likes;
+       }
+    
+        function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+        
+        
+autocomplete(document.getElementById("myInput"), userArray);
+
+        
+    </script>
+    
+    <style>         
+
+    
+             
+             #yourprofile {
+                  background-color: blue;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.9;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+             }
+             #profile {
+                  position: absolute;
+                 top: 140px;
+                 right: 26px;
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                  
              }
              
@@ -431,6 +1008,7 @@ function closeNav() {
              
              #myprofile img {
                  position: absolute;
+<<<<<<< HEAD
                  top: -50px;
                  right: 0px;
                  height: 100px;
@@ -441,11 +1019,58 @@ function closeNav() {
     
              
              
+=======
+                 top: -70px;
+                 right: 40px;
+                 height: 120px;
+                 width: 120px;
+             }
+         </style>
+         
+    <div id = "mylogo">
+         <a href = "https://km-software.github.io/Social-Media/aboutus.html"><img src = "logo.png"></a>
+         
+         </div>
+             
+          <style>
+              #mylogo {
+              position: absolute;
+                 top: 10px;
+                 left: 100px;
+                 height: 100px;
+                 width: 100px;
+              }
+         </style>
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
              
              
          
 
 <!-- The Modal -->
+    
+    <div id="myModal1" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close1">&times;</span>
+    <div class="card">
+  <img  height = "300px" width = "300px" src = "" alt="Image" id="image11">
+<h1 id="name1"> </h1>
+  <p id = "newusername11"></p>
+  <p id = "email1"> </p>
+  <p id = "bio1"> </p>
+  <p id = "school1"> </p>
+  
+  <a href="" id = "twitterlink1"><i class="fa fa-twitter"></i></a> 
+
+  <a href="" id = "facebooklink1"><i class="fa fa-facebook" ></i></a>
+      </div>
+      </div>
+    </div>
+    
+        
+         
+         
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
@@ -458,9 +1083,15 @@ function closeNav() {
   <p id = "email"> </p>
   <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
   <p id = "school"> </p>
+<<<<<<< HEAD
   <a href="#"><i class="fa fa-dribbble"></i></a> 
   <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
   <a href="#"><i class="fa fa-linkedin"></i></a> 
+=======
+  
+  <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
+
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
   <a href="" id = "facebooklink"><i class="fa fa-facebook" ></i></a>
         
   <button class="collapsible">Edit Profile</button>
@@ -475,6 +1106,13 @@ function closeNav() {
     <button type="button" onclick="bio()">Submit</button>
     <p id = "demo2"> </p>
     
+<<<<<<< HEAD
+=======
+    <p>Change your Profile Picture</p>
+        <input id="inputFileToLoad" type="file" accept=".jpg,.jpeg,.png" onchange="encodeImageFileAsURL();" /> <button onclick="chgPic()">Submit</button>
+        <div id="imgTest" style="display:none;"></div>
+    
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
     <p> School </p>
     <textarea rows = "1" cols = "30" id = "newschool">Insert your school here</textarea>
     <button type="button" onclick="school()">Submit</button>
@@ -501,26 +1139,69 @@ function closeNav() {
 
 </div>
 
-    <body>
-        <button onclick="signin()">Sign in</button>
-        <button onclick="signout()">Sign out</button>
+    
+        
+        
+        <button onclick="signin()">Buzz me in!</button>
+        
         <br>
        <br>
     
         <form>
-            Tweet:<br>
+            <h3 id = "tweettext">Insert Buzz Below</h3><br>
             <textarea id="twit" type="text" name="thetweet" cols="100" rows="4"></textarea>
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
     
         <br><input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
         <div id="imgTest" style="display:none;"></div>
+    <br>
+    <br>
+    <input type = "text" id = "vidarea" placeholder = "Insert the embedded link of the video. See our Help page for help."/>
         
+<<<<<<< HEAD
     <div id="mytweets"></div>
     <div id="mydata"></div>
     <div id="myphoto"></div>
         
         <style>
+=======
+    <br>
+    <br>
+    <hr>
+    <br>
+    <div id="mytweets"><div id="loader"></div></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <br>
+    <hr>
+    <br>
+   
+        
+        <style>
+            
+            #tweettext {
+                background-color: blue;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.9;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+                
+                
+            }
+            
+            
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
         .collapsible {
   background-color: #eee;
   color: #444;
@@ -532,10 +1213,18 @@ function closeNav() {
   outline: none;
   font-size: 15px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
   background-color: #ccc;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 /* Style the collapsible content. Note: hidden by default */
 .content {
   padding: 0 18px;
@@ -543,6 +1232,20 @@ function closeNav() {
   overflow: hidden;
   background-color: #f1f1f1;
 }
+<<<<<<< HEAD
+=======
+            
+            body {
+ background-image: url("beehivebackground.jpg");
+ background-color: #cccccc;
+height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  
+  background-size: cover;
+}
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
       </style>  
         
         
@@ -553,6 +1256,11 @@ function closeNav() {
     
      <script>
          
+<<<<<<< HEAD
+=======
+       
+         
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
          function facebook() {
              
              var face = document.getElementById("Facebook").value;
@@ -585,6 +1293,7 @@ function closeNav() {
              document.getElementById("newusername1").innerHTML = "Username: " + newusername 
          }
          
+<<<<<<< HEAD
          function bio() {
               var changedbio = document.getElementById("newbio").value;
              newbio = changedbio;
@@ -597,6 +1306,8 @@ function closeNav() {
             // document.getElementById("newusername1").innerHTML = "Username: " + newusername 
          }
          
+=======
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
          function school() {
              var changedschool = document.getElementById("newschool").value;
              newschool = changedschool;
@@ -607,6 +1318,7 @@ function closeNav() {
              document.getElementById("school").innerHTML = newschool;
          }
          
+<<<<<<< HEAD
          
          var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -630,6 +1342,37 @@ var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
            
 // When the user clicks on the button, open the modal 
+=======
+         function bio() {
+              var changedbio = document.getElementById("newbio").value;
+             newbio = changedbio;
+               firebase.database().ref('users/' + userId).update({
+                bio : newbio
+             });
+             
+             document.getElementById("bio").innerHTML = newbio;
+             document.getElementById("newbio").innerHTML = newbio;
+            
+         }
+         
+          function chgPic() {
+            var newPic = document.getElementById("imgTest").innerHTML;
+            firebase.database().ref('users/' + userId).update({
+                profile_picture2: newPic
+            });
+        }
+         
+         // function updateInfo() {
+           // var picture = "";
+          //}
+
+var modal = document.getElementById('myModal');
+
+var btn = document.getElementById("myBtn");
+
+var span = document.getElementsByClassName("close")[0];
+
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 btn.onclick = function() {
   modal.style.display = "block";
      document.getElementById("facebooklink").href = facebookUrl;
@@ -642,6 +1385,38 @@ btn.onclick = function() {
     document.getElementById("school").innerHTML = newschool;
     document.getElementById("twitterlink").href = twitterUrl;
     document.getElementById("newtwitter").innerHTML = twittername;
+<<<<<<< HEAD
+=======
+}
+
+document.getElementById("profilemenu").onclick = function() {
+  modal.style.display = "block";
+     document.getElementById("facebooklink").href = facebookUrl;
+    document.getElementById("Facebook").innerHTML = facebookname;
+    document.getElementById("newusername1").innerHTML = "Username: " + changedusername;
+    document.getElementById("newusername").innerHTML = changedusername;
+    document.getElementById("bio").innerHTML = newbio;
+    document.getElementById("newbio").innerHTML = newbio;
+    document.getElementById("newschool").innerHTML = newschool;
+    document.getElementById("school").innerHTML = newschool;
+    document.getElementById("twitterlink").href = twitterUrl;
+    document.getElementById("newtwitter").innerHTML = twittername;
+}
+
+ var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 }
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -655,10 +1430,35 @@ window.onclick = function(event) {
 }
     
  
+<<<<<<< HEAD
 console.log(imageUrl);
 console.log(userId);
          
     
+=======
+
+
+    function refresh() {
+          firebase.database().ref('/tweets').once('value').then(function(snapshot) {
+                    var data = (snapshot.val());
+                    if (data == null) {
+                      console.log("No data found at /tweets/" + userId);  
+                    } else {
+                        
+                      firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                        var userdata = (snapshot.val());
+                        if (userdata != null) {
+                           dataarray = [data,userdata]
+                           console.log(dataarray)
+                           updatetweets(dataarray); 
+                        }
+                      });
+                     
+                    }
+                });
+    }
+>>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
     </script>
-    
+
+    <button id = "refresh" onclick="refresh()"> Refresh </button>
 </html>
