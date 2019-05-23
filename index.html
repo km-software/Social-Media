@@ -9,7 +9,7 @@
 
 
     
-    <img src="https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/rUCOI_aF-j791zc7s/storyblocks-fire-flame-blue-icon-on-a-white-background_SGbMrAFDG_thumb.jpg" id="logo">
+    
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -52,8 +52,6 @@
   text-decoration: none;
   cursor: pointer;
 }
-<<<<<<< HEAD
-=======
         
         .close1 {
   color: #aaa;
@@ -61,15 +59,12 @@
   font-size: 28px;
   font-weight: bold;
 }
-
 .close1:hover,
 .close1:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
         
         
         tr:hover {background-color: #f5f5f5;}
@@ -118,13 +113,6 @@ button {
   cursor: pointer;
 }
 button:hover {opacity: 1}
-    
-    #logo {
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    }
-    
 </style>
     
 <!-- Use any element to open/show the overlay navigation menu -->
@@ -165,17 +153,14 @@ button:hover {opacity: 1}
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
-
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 /* Add animation to "page content" */
 .animate-bottom {
   position: relative;
@@ -184,17 +169,14 @@ button:hover {opacity: 1}
   animation-name: animatebottom;
   animation-duration: 1s
 }
-
 @-webkit-keyframes animatebottom {
   from { bottom:-100px; opacity:0 } 
   to { bottom:0px; opacity:1 }
 }
-
 @keyframes animatebottom { 
   from{ bottom:-100px; opacity:0 } 
   to{ bottom:0; opacity:1 }
 }
-
 #myDiv {
   display: none;
   text-align: center;
@@ -214,11 +196,9 @@ button:hover {opacity: 1}
 
 <script>
 var myVar;
-
 function myFunction() {
   myVar = setTimeout(showPage, 3000);
 }
-
 function showPage() {
 //document.getElementById("loader").style.display = "none";
   document.getElementById("myDiv").style.display = "block";
@@ -335,27 +315,16 @@ function closeNav() {
                 writeUserData(userId, name, email, imageUrl);
                 
                 // write data to document
-<<<<<<< HEAD
-                mydiv = document.getElementById("mydata");
-                mydiv.innerHTML = name
-                myphotodiv = document.getElementById("myphoto");
-                myphotodiv.innerHTML = "<img src='" + imageUrl + "'/>";
-                document.getElementById("myprofile").innerHTML = "<img src='" + imageUrl + "'/>";
-=======
                 signedin = true;
                
                 
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                 document.getElementById("name").innerHTML = name;
                
                 document.getElementById("email").innerHTML = email;
                 
                 firebase.database().ref('/users').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
-<<<<<<< HEAD
-=======
                     
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                     dataarray = [data]
                 users = dataarray[0];
                     
@@ -383,8 +352,6 @@ function closeNav() {
                         }
                     }
                     
-<<<<<<< HEAD
-=======
                     for (var u in users) {
                         if (users[u].email == email) {
                             if (users[u].profile_picture2 != null) {
@@ -395,7 +362,6 @@ function closeNav() {
                         }
                     }
                     
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                      for (var u in users) {
                         if (users[u].email == email) {
                             newschool = users[u].school
@@ -411,18 +377,12 @@ function closeNav() {
                             //alert(facebookUrl);
                         }
                     }
-<<<<<<< HEAD
-                    
-                });
-                
-=======
                     document.getElementById("myprofile").innerHTML = "<img src='" + picture + "'/>";
                      document.getElementById("image").src = picture;
                 });
                 
                 
                 
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                 firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
                     if (data == null) {
@@ -598,12 +558,10 @@ function closeNav() {
                     
                      firebase.database().ref('/tweets/' + userId).once('value', function(snapshot) {
              for (key of Object.keys(data)) {
-
             console.log(key);
                        }
                          
                          
-
            });
                        
                         
@@ -756,8 +714,6 @@ function closeNav() {
     
     </script>
          
-<<<<<<< HEAD
-=======
     
     <form autocomplete="off">
   <div class="autocomplete" style="width:300px;">
@@ -769,22 +725,11 @@ function closeNav() {
     
     
     
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
          <div id = "myBtn">
              <div id = "myprofile">
              
          </div>
          <div id = "profile">
-<<<<<<< HEAD
-             Your Profile
-         </div>
-             </div>
-         <style>
-             #profile {
-                  position: absolute;
-                 top: 120px;
-                 right: 18px;
-=======
              <p id=yourprofile>
              Your Profile
                  </p>
@@ -971,12 +916,10 @@ document.addEventListener("click", function (e) {
         
         
 autocomplete(document.getElementById("myInput"), userArray);
-
         
     </script>
     
     <style>         
-
     
              
              #yourprofile {
@@ -997,7 +940,6 @@ autocomplete(document.getElementById("myInput"), userArray);
                   position: absolute;
                  top: 140px;
                  right: 26px;
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
                  
              }
              
@@ -1008,18 +950,6 @@ autocomplete(document.getElementById("myInput"), userArray);
              
              #myprofile img {
                  position: absolute;
-<<<<<<< HEAD
-                 top: -50px;
-                 right: 0px;
-                 height: 100px;
-                 width: 100px;
-             }
-         </style>
-         
-    
-             
-             
-=======
                  top: -70px;
                  right: 40px;
                  height: 120px;
@@ -1041,7 +971,6 @@ autocomplete(document.getElementById("myInput"), userArray);
                  width: 100px;
               }
          </style>
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
              
              
          
@@ -1083,15 +1012,9 @@ autocomplete(document.getElementById("myInput"), userArray);
   <p id = "email"> </p>
   <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
   <p id = "school"> </p>
-<<<<<<< HEAD
-  <a href="#"><i class="fa fa-dribbble"></i></a> 
-  <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
-  <a href="#"><i class="fa fa-linkedin"></i></a> 
-=======
   
   <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
 
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
   <a href="" id = "facebooklink"><i class="fa fa-facebook" ></i></a>
         
   <button class="collapsible">Edit Profile</button>
@@ -1106,13 +1029,10 @@ autocomplete(document.getElementById("myInput"), userArray);
     <button type="button" onclick="bio()">Submit</button>
     <p id = "demo2"> </p>
     
-<<<<<<< HEAD
-=======
     <p>Change your Profile Picture</p>
         <input id="inputFileToLoad" type="file" accept=".jpg,.jpeg,.png" onchange="encodeImageFileAsURL();" /> <button onclick="chgPic()">Submit</button>
         <div id="imgTest" style="display:none;"></div>
     
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
     <p> School </p>
     <textarea rows = "1" cols = "30" id = "newschool">Insert your school here</textarea>
     <button type="button" onclick="school()">Submit</button>
@@ -1159,13 +1079,6 @@ autocomplete(document.getElementById("myInput"), userArray);
     <br>
     <input type = "text" id = "vidarea" placeholder = "Insert the embedded link of the video. See our Help page for help."/>
         
-<<<<<<< HEAD
-    <div id="mytweets"></div>
-    <div id="mydata"></div>
-    <div id="myphoto"></div>
-        
-        <style>
-=======
     <br>
     <br>
     <hr>
@@ -1201,7 +1114,6 @@ autocomplete(document.getElementById("myInput"), userArray);
             }
             
             
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
         .collapsible {
   background-color: #eee;
   color: #444;
@@ -1213,18 +1125,10 @@ autocomplete(document.getElementById("myInput"), userArray);
   outline: none;
   font-size: 15px;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
   background-color: #ccc;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 /* Style the collapsible content. Note: hidden by default */
 .content {
   padding: 0 18px;
@@ -1232,20 +1136,16 @@ autocomplete(document.getElementById("myInput"), userArray);
   overflow: hidden;
   background-color: #f1f1f1;
 }
-<<<<<<< HEAD
-=======
             
             body {
  background-image: url("beehivebackground.jpg");
  background-color: #cccccc;
 height: 100%; 
-
   /* Center and scale the image nicely */
   background-position: center;
   
   background-size: cover;
 }
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
       </style>  
         
         
@@ -1256,11 +1156,8 @@ height: 100%;
     
      <script>
          
-<<<<<<< HEAD
-=======
        
          
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
          function facebook() {
              
              var face = document.getElementById("Facebook").value;
@@ -1293,21 +1190,6 @@ height: 100%;
              document.getElementById("newusername1").innerHTML = "Username: " + newusername 
          }
          
-<<<<<<< HEAD
-         function bio() {
-              var changedbio = document.getElementById("newbio").value;
-             newbio = changedbio;
-               firebase.database().ref('users/' + userId).update({
-                bio : newbio
-             });
-             //document.getElementById("demo2").innerHTML = newbio;
-             document.getElementById("bio").innerHTML = newbio;
-             document.getElementById("newbio").innerHTML = newbio;
-            // document.getElementById("newusername1").innerHTML = "Username: " + newusername 
-         }
-         
-=======
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
          function school() {
              var changedschool = document.getElementById("newschool").value;
              newschool = changedschool;
@@ -1318,31 +1200,6 @@ height: 100%;
              document.getElementById("school").innerHTML = newschool;
          }
          
-<<<<<<< HEAD
-         
-         var coll = document.getElementsByClassName("collapsible");
-var i;
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-    
-    // Get the modal
-var modal = document.getElementById('myModal');
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-           
-// When the user clicks on the button, open the modal 
-=======
          function bio() {
               var changedbio = document.getElementById("newbio").value;
              newbio = changedbio;
@@ -1365,14 +1222,9 @@ var span = document.getElementsByClassName("close")[0];
          // function updateInfo() {
            // var picture = "";
           //}
-
 var modal = document.getElementById('myModal');
-
 var btn = document.getElementById("myBtn");
-
 var span = document.getElementsByClassName("close")[0];
-
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 btn.onclick = function() {
   modal.style.display = "block";
      document.getElementById("facebooklink").href = facebookUrl;
@@ -1385,10 +1237,7 @@ btn.onclick = function() {
     document.getElementById("school").innerHTML = newschool;
     document.getElementById("twitterlink").href = twitterUrl;
     document.getElementById("newtwitter").innerHTML = twittername;
-<<<<<<< HEAD
-=======
 }
-
 document.getElementById("profilemenu").onclick = function() {
   modal.style.display = "block";
      document.getElementById("facebooklink").href = facebookUrl;
@@ -1402,10 +1251,8 @@ document.getElementById("profilemenu").onclick = function() {
     document.getElementById("twitterlink").href = twitterUrl;
     document.getElementById("newtwitter").innerHTML = twittername;
 }
-
  var coll = document.getElementsByClassName("collapsible");
 var i;
-
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
@@ -1416,7 +1263,6 @@ for (i = 0; i < coll.length; i++) {
       content.style.display = "block";
     }
   });
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
 }
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -1430,14 +1276,6 @@ window.onclick = function(event) {
 }
     
  
-<<<<<<< HEAD
-console.log(imageUrl);
-console.log(userId);
-         
-    
-=======
-
-
     function refresh() {
           firebase.database().ref('/tweets').once('value').then(function(snapshot) {
                     var data = (snapshot.val());
@@ -1457,7 +1295,6 @@ console.log(userId);
                     }
                 });
     }
->>>>>>> 547cdd84e3ef5c8f35af835ead4731876b17fba0
     </script>
 
     <button id = "refresh" onclick="refresh()"> Refresh </button>
