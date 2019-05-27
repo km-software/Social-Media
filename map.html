@@ -41,13 +41,18 @@
   };
   // Initialize Firebase
   firebase.initializeApp(config);
+    var myIcon = L.icon({
+    iconUrl: 'bee.png',
+    iconSize: [100, 95],
+    popupAnchor: [0, -20],
     
+});
      firebase.database().ref('/users').once('value').then(function(snapshot) {
                     var users = (snapshot.val());
          
          for(var u in users) {
              if(users[u].latitude != null) {
-             L.marker([users[u].latitude, users[u].longitude]).addTo(mymap)
+             L.marker([users[u].latitude, users[u].longitude],{icon:myIcon}).addTo(mymap)
 .bindPopup("<b>Bee Location</b><br />"+ users[u].username +  " is Buzzin' Here.").openPopup();
          }
          }
@@ -58,6 +63,8 @@
     function backtohive() {
         window.location = "https://km-software.github.io/Social-Media/index.html";
     }
+    
+    
 
 var mymap = L.map('mapid').setView([43.692, -79.403], 13);
 
