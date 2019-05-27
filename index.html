@@ -45,7 +45,7 @@
   <!-- Overlay content -->
   <div class="overlay-content">
     <a id = "profilemenu">Profile</a>
-    <a href="#">Explore</a>
+    <a href="https://km-software.github.io/Social-Media/map.html">HIVEMAP</a>
     <a href="https://km-software.github.io/Social-Media/aboutus.html">About HIVE</a>
     <a onclick="signout()">Buzz me out!</a>
   </div>
@@ -185,7 +185,7 @@
   <p id = "email"> </p>
   <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
   <p id = "school"> </p>
-    <button id = "geolocation" onclick="getLocation()"> Allow Buzzmap</button>
+    <button id = "geolocation" onclick="getLocation()"> Allow HIVEMAP</button>
         <br>
         I have
         <br>
@@ -742,8 +742,7 @@ function getLocation() {
 }
 
 function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
+  x.innerHTML = "You are now available on HIVEMAP!"
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     geolocation(latitude, longitude);
