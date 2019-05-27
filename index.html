@@ -1060,7 +1060,6 @@ function showPosition(position) {
                         mytab = mytab + "<td>" +"<button id ='dislike" + count +"'onclick=addDislike("+ count+",'" + u + "'," + "'" + t + "'" + ")>" +data[u][t].dislikes +  "</button><br>Dislikes</td>+ <td> <button id = 'delete" + count + "' onclick = delTweet(" + count + ",'" + u + "'," + "'" + t + "'" +")> Delete this tweet</button> </td>";
                              
                     } else {
-                        alert("You cannot post both a video and a picture");
                     }
                      } else {
                           if (data[u][t].img != "" && data[u][t].vid == "") {
