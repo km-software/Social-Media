@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<title>Quick Start - Leaflet</title>
+<title>HIVEMAP</title>
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +18,14 @@
 <body>
  <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+    
+ <img id = "image" src="logo.png">
+        <a href="https://km-software.github.io/Social-Media/index.html" id="link" onclick = "backtohive()"> Go back to HIVE</a>
 
-
-<div id="mapid" style="width: 600px; height: 400px;"></div>
+    
+<h1 id="title"> HIVEMAP</h1>
+<div id="mapid" style="width: 1422px; height: 550px;"></div>
 <script>
     
      // Initialize Firebase
@@ -47,6 +52,12 @@
          }
          }
      });
+    
+    
+    
+    function backtohive() {
+        window.location = "https://km-software.github.io/Social-Media/index.html";
+    }
 
 var mymap = L.map('mapid').setView([43.692, -79.403], 13);
 
@@ -67,17 +78,66 @@ fillOpacity: 0.5
 
 var popup = L.popup();
 
-function onMapClick(e) {
+/*function onMapClick(e) {
 popup
 .setLatLng(e.latlng)
 .setContent("You clicked the map at " + e.latlng.toString())
 .openOn(mymap);
 }
 
-mymap.on('click', onMapClick);
+mymap.on('click', onMapClick);*/
 
 </script>
+<style>
+    body {
+ background-image: url("beehivebackground.jpg");
+ background-color: #cccccc;
+height: 100%; 
 
+  /* Center and scale the image nicely */
+  background-position: center;
+  
+  background-size: cover;
+}
+    
+    #mapid {
+        top: -200px;
+        
+        
+        
+        
+    }
+    #title {
+        color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 85px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; position: relative; top: -170px;
+    }
+    
+     #image {
+        height: 120px;
+        width: 100px;
+        top: 10px;
+        
+    }
+    
+     #link {
+        
+        background-color: blue;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.9;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+         position: relative;
+         top: -30px;
+         left:1100px;
+         z-index: 1;
+    }
+    </style>
 
 
 </body>
