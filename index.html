@@ -797,6 +797,16 @@ function showPosition(position) {
                         }
                     }
                     
+                    for (var u in users) {
+                        if(users[u].email == email) {
+                            if (users[u].longitude != null) {
+                                document.getElementById("geolocation").innerHTML = "Update HIVEMAP Location"
+                            } else {
+                                document.getElementById("geolocation").innerHTML = "Allow HIVEMAP" 
+                            }
+                        }
+                    }
+                    
                       for (var u in users) {
                         if (users[u].email == email) {
                             changedusername = users[u].newusername
