@@ -139,6 +139,7 @@
   <p id = "email1"> </p>
   <p id = "bio1"> </p>
   <p id = "school1"> </p>
+ 
   
   <a href="" id = "twitterlink1"><i class="fa fa-twitter"></i></a> 
 
@@ -160,12 +161,9 @@
       Followers!
       <br> 
       <br>
-      Click to Follow this User!
+      Click Above to Follow this User!
         
-        <button class="collapsible1" onclick="usertweets()">See This User's Tweets</button>
-<div class="content1" id="mytweets1">
-    Test
-            </div>
+      
       </div>
       </div>
     </div>
@@ -187,7 +185,7 @@
   <p id = "email"> </p>
   <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
   <p id = "school"> </p>
-  
+   <p id="myfollowers"> </p>
   <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
 
   <a href="" id = "facebooklink"><i class="fa fa-facebook" ></i></a>
@@ -248,11 +246,11 @@
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
     
-        <br> Post a Picture!<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+        <br> Post a Picture!  <input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
         <div id="imgTest" style="display:none;"></div>
     <br>
     <br>
-    Post a Video! <input type = "text" id = "vidarea" placeholder = "Click share on a Youtube video, click embed, and then click copy in the bottom right corner. Insert the link here."/>
+    Post a Video!  <input type = "text" id = "vidarea" placeholder = "Click share on a Youtube video, click embed, and then click copy in the bottom right corner. Insert the link here."/>
         
     <br>
     <br>
@@ -278,7 +276,7 @@
     
      
 
-    <button id = "refresh" onclick="refresh()"> Refresh </button>
+   
 
     
     
@@ -375,7 +373,7 @@ button:hover {opacity: 1}
         #loader {
   position: absolute;
   left: 52.25%;
-  top: 77%;
+  top: 88%;
   z-index: 1;
   width: 33px;
   height: 33px;
@@ -577,7 +575,7 @@ input[type=submit] {
              
              #myprofile img {
                  position: absolute;
-                 top: -70px;
+                 top: -127px;
                  right: 40px;
                  height: 120px;
                  width: 120px;
@@ -795,6 +793,18 @@ function closeNav() {
                      for (var u in users) {
                         if (users[u].email == email) {
                             newschool = users[u].school
+                            //facebookUrl = "https://www.facebook.com/" + facebookname;
+                            //alert(facebookUrl);
+                        }
+                    }
+                    
+                     for (var u in users) {
+                        if (users[u].email == email) {
+                            if(users[u].followers != null) {
+                            myfollowers = users[u].followers
+                            } else {
+                                myfollowers = 0;
+                            }
                             //facebookUrl = "https://www.facebook.com/" + facebookname;
                             //alert(facebookUrl);
                         }
@@ -1447,7 +1457,11 @@ for (i1 = 0; i1 < coll1.length; i1++) {
                firebase.database().ref('users/' + userId).update({
                 bio : newbio
              });
-             
+              if(users[u].bio != null) {
+                                document.getElementById("bio1").innerHTML = users[u].bio;
+                            } else {
+                                document.getElementById("bio1").innerHTML = "";
+                            }
              document.getElementById("bio").innerHTML = newbio;
              document.getElementById("newbio").innerHTML = newbio;
             
@@ -1482,6 +1496,7 @@ btn.onclick = function() {
     document.getElementById("school").innerHTML = newschool;
     document.getElementById("twitterlink").href = twitterUrl;
     document.getElementById("newtwitter").innerHTML = twittername;
+    document.getElementById("myfollowers").innerHTML = "I have " + myfollowers + " followers.";
 }
 
 document.getElementById("profilemenu").onclick = function() {
