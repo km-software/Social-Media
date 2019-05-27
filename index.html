@@ -144,7 +144,23 @@
 
   <a href="" id = "facebooklink1"><i class="fa fa-facebook" ></i></a>
         <br>
-    <button id = "followbutton" onclick = "follow()">Follow this User</button>
+        
+        <br>
+         
+        
+        </div>
+        
+        This User has 
+      <br>
+        <div id="followdiv">
+        
+        
+        
+        </div>
+      Followers!
+      <br> 
+      <br>
+      Click to Follow this User!
         
         <button class="collapsible1" onclick="usertweets()">See This User's Tweets</button>
 <div class="content1" id="mytweets1">
@@ -232,11 +248,11 @@
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
     
-        <br><input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+        <br> Post a Picture!<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
         <div id="imgTest" style="display:none;"></div>
     <br>
     <br>
-    <input type = "text" id = "vidarea" placeholder = "Click share on a Youtube video, click embed, and then click copy in the bottom right corner. Insert the link here."/>
+    Post a Video! <input type = "text" id = "vidarea" placeholder = "Click share on a Youtube video, click embed, and then click copy in the bottom right corner. Insert the link here."/>
         
     <br>
     <br>
@@ -720,6 +736,8 @@ function closeNav() {
                 name = user.displayName;
                 imageUrl = user.photoURL;
                 email = user.email;
+                
+                 
                 //updateInfo();   
                 // write user data to users
                 writeUserData(userId, name, email, imageUrl);
@@ -761,6 +779,8 @@ function closeNav() {
                             //alert(facebookUrl);
                         }
                     }
+                    
+                    
                     
                     for (var u in users) {
                         if (users[u].email == email) {
@@ -883,64 +903,7 @@ function closeNav() {
             }
             });
         }
-        var count1;
-          function searchforuser() {
-              for(var abc = 0; abc<userArray.length; abc++) {
-              if(document.getElementById("myInput").value == userArray[abc]) {
-                   var searchedU = document.getElementById("myInput").value;
-                  firebase.database().ref('/users').once('value').then(function(snapshot) { 
-                var users = (snapshot.val());
-                      for(var u in users) {
-                          count1++;
-                        if (users[u].username == searchedU || users[u].newusername == searchedU) {
-                            if (users[u].profile_picture2 != null) {
-                                document.getElementById("image11").src = users[u].profile_picture2;
-                           
-                            } else {
-                                document.getElementById("image11").src = users[u].profile_picture; 
-                            }
-                            document.getElementById("name1").innerHTML = users[u].username;
-                            if(users[u].newusername != null) {
-                            document.getElementById("newusername11").innerHTML = "Username: " + users[u].newusername;
-                            } else {
-                               document.getElementById("newusername11").innerHTML = ""; 
-                            }
-                            document.getElementById("email1").innerHTML = users[u].email;
-                            if(users[u].bio != null) {
-                                document.getElementById("bio1").innerHTML = users[u].bio;
-                            } else {
-                                document.getElementById("bio1").innerHTML = "";
-                            }
-                             if(users[u].school != null) {
-                            document.getElementById("school1").innerHTML = users[u].school;
-                             } else {
-                                 document.getElementById("school1").innerHTML = "";
-                             }
-                            var ufacebook = "https://www.facebook.com/" + users[u].facebook;
-                            var utwitter = "https://twitter.com/" + users[u].twitter;
-                            document.getElementById("facebooklink1").href = ufacebook;
-                            document.getElementById("twitterlink1").href = utwitter;
-                            
-                            var follow = "<button id = 'followbutton' onclick = 'follow(" + count1 +",'" + u + "'" + ")>Follow this User</button>"
-                        }
-                           
-                      }
-                      
-                    });
-                 
-                 
-                  var modal1 = document.getElementById('myModal1');
-                  modal1.style.display = "block";
-                  var span1 = document.getElementsByClassName("close1")[0];
-                  span1.onclick = function() {
-                  modal1.style.display = "none";
-                       
-                         
-                    }
-               }  
-                 
-            }
-         }
+      
     var count = 0;
         function updatetweets(data) {
             
@@ -1071,9 +1034,10 @@ function closeNav() {
                     } else {
                         alert("You cannot post both a video and a picture");
                     }  
-                     }
+                     }                        
+
                     } else {
-                        if (users[u].profile_picture2 != null) {
+                       if (users[u].profile_picture2 != null) {
                     if (data[u][t].img != "") {
                         mytab = mytab + "<td><img src='" + users[u].profile_picture2 + "' width='50px'></td>";
                         mytab = mytab + "<td>" + users[u].username + "</td>";
@@ -1118,15 +1082,17 @@ function closeNav() {
             //mytdiv.innerHTML = mylist;
             mytdiv.innerHTML = mytab;
         }
+             
+             
         
         function delTweet(count,u,t) {
-            
-            if(u = userId) {
+            if(u == userId) {
             if(confirm("Are you sure you want to delete this tweet?")) {
                 firebase.database().ref("tweets/" + u + "/" + t).remove();
+                alert("Your tweet has successfully been deleted.");
             }
             } else {
-                alert("This is not your tweet. You can not delete it!")
+                alert("This is not your tweet. You can not delete it!");
             }
             
             
@@ -1149,7 +1115,10 @@ function closeNav() {
             
             
             firebase.database().ref('tweets/' + u + "/" + t).update({likes: dope});
-        };
+        }
+             
+             
+             
              
              function addDislike(count,u,t) {
             var mybutt = document.getElementById("dislike" + count); 
@@ -1165,10 +1134,92 @@ function closeNav() {
             
             
             firebase.database().ref('tweets/' + u + "/" + t).update({dislikes: dope});
-        };
+        }
+             
+             
+               
+             
+              function follow(u) {
+                    var followbutton = document.getElementById("followbutton")
+                    var followersnow = Number(followbutton.innerHTML);
+                    var numberoffollowers = followersnow + 1;
+                    followbutton.innerHTML = numberoffollowers;
+                  followbutton.disabled = true;
+                            firebase.database().ref('users/' + u + "/").update({
+               followers : numberoffollowers
+            });
+                            
+                            
+                        }
+                      
+             
         
         
-        
+        var count1;
+          function searchforuser() {
+              for(var abc = 0; abc<userArray.length; abc++) {
+              if(document.getElementById("myInput").value == userArray[abc]) {
+                   var searchedU = document.getElementById("myInput").value;
+                  firebase.database().ref('/users').once('value').then(function(snapshot) { 
+                var users = (snapshot.val());
+                      for(var u in users) {
+                          count1++;
+                        if (users[u].username == searchedU || users[u].newusername == searchedU) {
+                            if (users[u].profile_picture2 != null) {
+                                document.getElementById("image11").src = users[u].profile_picture2;
+                           
+                            } else {
+                                document.getElementById("image11").src = users[u].profile_picture; 
+                            }
+                            document.getElementById("name1").innerHTML = users[u].username;
+                            if(users[u].newusername != null) {
+                            document.getElementById("newusername11").innerHTML = "Username: " + users[u].newusername;
+                            } else {
+                               document.getElementById("newusername11").innerHTML = ""; 
+                            }
+                            document.getElementById("email1").innerHTML = users[u].email;
+                            if(users[u].bio != null) {
+                                document.getElementById("bio1").innerHTML = users[u].bio;
+                            } else {
+                                document.getElementById("bio1").innerHTML = "";
+                            }
+                             if(users[u].school != null) {
+                            document.getElementById("school1").innerHTML = users[u].school;
+                             } else {
+                                 document.getElementById("school1").innerHTML = "";
+                             }
+                            var ufacebook = "https://www.facebook.com/" + users[u].facebook;
+                            var utwitter = "https://twitter.com/" + users[u].twitter;
+                            document.getElementById("facebooklink1").href = ufacebook;
+                            document.getElementById("twitterlink1").href = utwitter;
+                            var uname = users[u].username;
+                            if (users[u].followers != null) {
+                            var ufollowers = users[u].followers;
+                                } else {
+                                    var ufollowers = 0;
+                                }
+                            var follow = "<button id = 'followbutton' onclick = follow('" + u + "')>" + ufollowers + "</button>";
+                            document.getElementById("followdiv").innerHTML = follow;
+                        }
+                           
+                      }
+                      
+                    });
+                 
+                 
+                  var modal1 = document.getElementById('myModal1');
+                  modal1.style.display = "block";
+                  var span1 = document.getElementsByClassName("close1")[0];
+                  span1.onclick = function() {
+                  modal1.style.display = "none";
+                      
+                       
+                         
+                    }
+               }  
+                 
+            }
+         }
         // write tweets to firebase
         function tweet() {
             
@@ -1178,6 +1229,11 @@ function closeNav() {
             var nameValue = twitdoc.value;
             var imgValue = twitimg.innerHTML;
             var js_time = Date.now();
+            if(nameValue.length == 0) {
+                alert("Your tweet must use text");
+            } else if (nameValue.length >= 200) {
+                alert("Your tweet cannot be longer than 200 characters");
+            } else {
             var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: nameValue, time: js_time, img: imgValue, vid: vidlink, likes: 0, dislikes: 0});
             twitdoc.value = "";
             console.log("tweet written");
@@ -1202,32 +1258,12 @@ function closeNav() {
                 });
             
             
-            
+            }
             // The unique key stored in tweetid is based on a timestamp, so list items will automatically be ordered chronologically. Because Firebase generates a unique key for each tweet, no write conflicts will occur if multiple users add a post at the same time. https://firebase.google.com/docs/database/admin/save-data
             
         }
         
-        function follow(count1, u) {
-             for(var a = 0; a<userArray.length; a++) {
-              if(document.getElementById("myInput").value == userArray[a]) {
-                   var searchedU = document.getElementById("myInput").value;
-                  firebase.database().ref('/users').once('value').then(function(snapshot) { 
-                var users = (snapshot.val());
-                      for(var u in users) {
-                        if (users[u].username == searchedU || users[u].newusername == searchedU) {
-                            alert(users[u]);
-                            firebase.database().ref('users/' + users[u] + "/followers/").push({
-                user : userId
-            });
-                            
-                            
-                        }
-                      }
-                  });
-            }
-            
-        }
-        }
+       
         function signin() {
             console.log("Signing in");
             var provider = new firebase.auth.GoogleAuthProvider();
