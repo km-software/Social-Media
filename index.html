@@ -158,7 +158,7 @@
         
         
         </div>
-      Followers!
+      Followers
       <br> 
       <br>
       Click Above to Follow this User!
@@ -185,12 +185,13 @@
   <p id = "email"> </p>
   <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
   <p id = "school"> </p>
+    <button id = "geolocation" onclick="getLocation()"> Allow Buzzmap</button>
         <br>
         I have
         <br>
    <button id="myfollowers"> </button>
         <br>
-        Followers.
+        Followers
         <br>
         <br>
   <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
@@ -233,7 +234,7 @@
         
         
         
-  <p><button>Contact</button></p>
+  
 </div>
   </div>
 
@@ -249,7 +250,7 @@
     
         <form>
             <h3 id = "tweettext">Insert Buzz Below</h3><br>
-            <textarea id="twit" type="text" name="thetweet" cols="100" rows="4"></textarea>
+            <textarea id="twit" type="text" name="thetweet" cols="100" rows="4" placeholder="Insert Your Message Here"></textarea>
         </form> 
         <button type="button" onclick="tweet()">Submit</button>
     
@@ -729,6 +730,34 @@ function closeNav() {
   };
   // Initialize Firebase
   firebase.initializeApp(config);
+             
+             
+var x = document.getElementById("geolocation");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    geolocation(latitude, longitude);
+}
+     function geolocation(latitude, longitude) {
+            firebase.database().ref('users/' + userId).update({
+                latitude: latitude,
+                longitude: longitude,
+              //  facebook : facebookusername
+            });
+        }
+    
+
+
                 
         // Check to see if you are logged in
         firebase.auth().onAuthStateChanged(function(user) {
