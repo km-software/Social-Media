@@ -185,7 +185,14 @@
   <p id = "email"> </p>
   <p id = "bio">Create a bio in the "Edit Profile" tab!</p>
   <p id = "school"> </p>
-   <p id="myfollowers"> </p>
+        <br>
+        I have
+        <br>
+   <button id="myfollowers"> </button>
+        <br>
+        Followers.
+        <br>
+        <br>
   <a href="#" id = "twitterlink"><i class="fa fa-twitter"></i></a> 
 
   <a href="" id = "facebooklink"><i class="fa fa-facebook" ></i></a>
@@ -1496,7 +1503,7 @@ btn.onclick = function() {
     document.getElementById("school").innerHTML = newschool;
     document.getElementById("twitterlink").href = twitterUrl;
     document.getElementById("newtwitter").innerHTML = twittername;
-    document.getElementById("myfollowers").innerHTML = "I have " + myfollowers + " followers.";
+    document.getElementById("myfollowers").innerHTML =  myfollowers;
 }
 
 document.getElementById("profilemenu").onclick = function() {
