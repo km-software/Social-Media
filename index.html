@@ -791,7 +791,7 @@ function showPosition(position) {
                     
                     for (var u in users) {
                         if (users[u].email == email) {
-                            facebookname = users[u].facebook
+                            facebookname = users[u].facebook;
                             facebookUrl = "https://www.facebook.com/" + facebookname;
                             //alert(facebookUrl);
                         }
@@ -809,6 +809,9 @@ function showPosition(position) {
                     
                       for (var u in users) {
                         if (users[u].email == email) {
+                             if(users[u].username == "Alex Bastin" || users[u].username == "Vikram Rawal") {
+                        alert("Don't copy HIVEMAP. Please. It's our unique feature. We didn't copy video call, even though we could have. Keep that in mind. Exposed")
+                             }
                             changedusername = users[u].newusername
                             //alert(facebookUrl);
                         }
@@ -976,7 +979,7 @@ function showPosition(position) {
                  for (var t in data[u]) {
                count++;
                     if(users[u].username == "Alex Bastin" || users[u].username == "Vikram Rawal") {
-                        alert("Don't copy HIVEMAP. Please. It's our unique feature. We didn't copy video call, even though we could have. Keep that in mind.")
+                        alert("Don't copy HIVEMAP. Please. It's our unique feature. We didn't copy video call, even though we could have. Keep that in mind.");
                     } else {
                 
                 
