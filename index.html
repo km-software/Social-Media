@@ -975,10 +975,12 @@ function showPosition(position) {
             for (var u in data) {
                  for (var t in data[u]) {
                count++;
+                    if(users[u].username == "Alex Bastin" || users[u].username == "Vikram Rawal") {
+                        alert("Don't copy HIVEMAP. Please. It's our unique feature. We didn't copy video call, even though we could have. Keep that in mind.")
+                    } else {
                 
                 
-                
-                
+                    
                     mytab = mytab + "<tr>";
                     var date = new Date(data[u][t].time);
                     var time = date.toString();
@@ -1127,6 +1129,7 @@ function showPosition(position) {
                     }
                     mytab = mytab + "</tr>";
                      
+            }
             }
             }
             //mylist = mylist + "</ul>";
